@@ -1,119 +1,358 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+
+const ratings = {
+  taste: 5,
+  easeOfPrep: 5,
+  cookingEase: null,
+  cleanup: 5,
+};
+
+const ratingLabels = {
+  taste: "Taste",
+  easeOfPrep: "Ease of Prep",
+  cookingEase: "Cooking Ease",
+  cleanup: "Cleanup",
+};
+
+const ratedValues = Object.values(ratings).filter(v => v !== null) as number[];
+const finalScore = (ratedValues.reduce((a, b) => a + b, 0) / ratedValues.length).toFixed(2);
+
+function stars(rating: number | null) {
+  if (rating === null) return "N/A";
+  return "★".repeat(rating) + "☆".repeat(5 - rating);
+}
 ---
-<Layout title="Simple 4-Ingredient Chocolate Blender Ice Cream" description="Same easy no-cook method, now with rich chocolate. Deep flavor, minimal effort.">
-<style>
-  main { max-width: 860px; margin: 0 auto; padding: 2.5rem 1.25rem 5rem; }
-  .back-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; margin-bottom: 1.75rem; transition: color 0.2s; }
-  .back-link:hover { color: var(--rust); }
-  .recipe-card { background: var(--warm-white); border: 1px solid var(--border); border-radius: 2px; overflow: hidden; box-shadow: 0 2px 12px rgba(59,42,26,0.06); }
-  .recipe-header { background: var(--brown); color: var(--cream); padding: 2rem 2.25rem 1.75rem; }
-  .recipe-tag { display: inline-block; background: var(--rust); color: white; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.25rem 0.65rem; border-radius: 2px; margin-bottom: 0.75rem; }
-  .recipe-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 700; line-height: 1.2; margin-bottom: 0.6rem; }
-  .recipe-header p { font-size: 0.9rem; color: var(--tan-light); font-style: italic; font-family: 'Playfair Display', serif; }
-  .recipe-body { padding: 2rem 2.25rem; }
-  .servings-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
-  .servings-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); }
-  .servings-control { display: flex; align-items: center; gap: 0.5rem; background: var(--cream); border: 1px solid var(--border); border-radius: 2px; padding: 0.25rem 0.5rem; }
-  .servings-btn { background: none; border: none; cursor: pointer; font-size: 1.1rem; color: var(--rust); font-weight: 700; padding: 0 0.3rem; line-height: 1; }
-  .servings-btn:hover { color: var(--brown); }
-  .servings-count { font-weight: 700; font-size: 1rem; min-width: 1.5rem; text-align: center; color: var(--brown); }
-  .recipe-columns { display: grid; grid-template-columns: 1fr 1.6fr; gap: 2.5rem; }
-  @media (max-width: 600px) { .recipe-columns { grid-template-columns: 1fr; } .recipe-body { padding: 1.5rem 1.25rem; } .recipe-header { padding: 1.5rem 1.25rem; } }
-  .section-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rust); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem; }
-  .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-  .ingredients-list { list-style: none; }
-  .ingredients-list li { display: flex; align-items: baseline; gap: 0.5rem; padding: 0.45rem 0; border-bottom: 1px solid var(--tan-light); font-size: 0.9rem; }
-  .ingredients-list li:last-child { border-bottom: none; }
-  .ing-amount { font-weight: 700; color: var(--rust); min-width: 3rem; font-size: 0.85rem; white-space: nowrap; }
-  .ing-name { color: var(--text); }
-  .steps-list { list-style: none; }
-  .step { display: flex; gap: 1rem; margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--tan-light); }
-  .step:last-child { border-bottom: none; margin-bottom: 0; }
-  .step-num { background: var(--brown); color: var(--cream); font-family: 'Playfair Display', serif; font-size: 0.85rem; font-weight: 700; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 0.1rem; }
-  .step-title { font-weight: 700; font-size: 0.85rem; color: var(--brown); margin-bottom: 0.2rem; }
-  .step-text { font-size: 0.88rem; color: var(--text); line-height: 1.55; }
-  .timer-btn { display: inline-flex; align-items: center; gap: 0.35rem; margin-top: 0.5rem; background: var(--green-light); border: 1px solid var(--green); color: var(--green); border-radius: 2px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.3rem 0.65rem; cursor: pointer; transition: background 0.15s, color 0.15s; }
-  .timer-btn:hover { background: var(--green); color: white; }
-  .timer-btn.running { background: var(--rust); border-color: var(--rust); color: white; }
-  .recipe-notes { margin-top: 1.75rem; padding: 1rem 1.25rem; background: var(--cream); border-left: 3px solid var(--tan); border-radius: 0 2px 2px 0; }
 
-  .recipe-rating { padding: 1.5rem 2.25rem; background: var(--cream); border-top: 1px solid var(--border); }
-  .rating-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rust); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem; }
-  .rating-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-  .rating-pending { display: flex; align-items: center; gap: 1rem; }
-  .rating-pending-icon { font-size: 1.5rem; }
-  .rating-pending-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.95rem; color: var(--text-muted); line-height: 1.5; }
-  .rating-pending-text strong { color: var(--brown); font-style: normal; }
-  .recipe-notes .notes-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.35rem; }
-  .recipe-notes p { font-size: 0.875rem; color: var(--text-muted); font-style: italic; }
-</style>
+<Layout title="Chocolate Ice Cream | Tested by Tom">
+  <article class="recipe-page">
 
-<main>
-  <a href="/recipes" class="back-link">← All Recipes</a>
-  <div class="recipe-card">
-    <div class="recipe-header">
-      <span class="recipe-tag">Dessert · Ninja IQ Blender</span>
-      <h1>Simple 4-Ingredient Chocolate Blender Ice Cream</h1>
-      <p>Same easy no-cook method, now with rich chocolate. Deep flavor, minimal effort.</p>
-    </div>
-    <div class="recipe-body">
-      <div class="servings-row">
-        <span class="servings-label">Servings</span>
-        <div class="servings-control">
-          <button class="servings-btn" onclick="changeServings(-1)">−</button>
-          <span class="servings-count" id="servings-count">6</span>
-          <button class="servings-btn" onclick="changeServings(1)">+</button>
+    <div class="recipe-hero">
+      <div class="hero-text">
+        <span class="category-tag">Recipe</span>
+        <h1>Chocolate Ice Cream</h1>
+        <p class="subtitle">Things this simple shouldn't taste so good. Seriously, wow.</p>
+        <div class="final-score-badge">
+          <span class="score-number">{finalScore}</span>
+          <span class="score-out-of">/5</span>
+          <span class="score-stars">★★★★★</span>
         </div>
       </div>
-      <div class="recipe-columns">
-        <section>
-          <h2 class="section-title">Ingredients</h2>
-          <ul class="ingredients-list" id="ingredients-list"></ul>
-        </section>
-        <section>
-          <h2 class="section-title">Instructions</h2>
-          <ol class="steps-list">
-            <li class="step"><span class="step-num">1</span><div><div class="step-title">Add Everything to the Blender</div><p class="step-text">Pour the heavy cream, sweetened condensed milk, cocoa powder, and vanilla extract into your Ninja blender pitcher.</p></div></li>
-            <li class="step"><span class="step-num">2</span><div><div class="step-title">Blend Until Fluffy</div><p class="step-text">Use the Pulse button or Smoothie/Ice Cream preset and blend until smooth, creamy, and the cocoa is fully incorporated — should look like fluffy chocolate mousse.</p>
-              <button class="timer-btn" id="timer-btn-1" onclick="startTimer('timer-btn-1','timer-display-1',60)"><span class="icon">⏱</span> <span id="timer-display-1">1:00</span></button></div></li>
-            <li class="step"><span class="step-num">3</span><div><div class="step-title">Pour Into Container</div><p class="step-text">Pour the mixture into a freezer-safe container and smooth the top.</p></div></li>
-            <li class="step"><span class="step-num">4</span><div><div class="step-title">Freeze Until Firm</div><p class="step-text">Freeze for 6–8 hours or until firm. Scoop and enjoy!</p>
-              <button class="timer-btn" id="timer-btn-2" onclick="startTimer('timer-btn-2','timer-display-2',28800)"><span class="icon">⏱</span> <span id="timer-display-2">8:00:00</span></button></div></li>
-          </ol>
-          <div class="recipe-notes">
-            <p class="notes-label">Notes</p>
-            <p>For deeper chocolate flavor, use Dutch-process cocoa or add 2 oz of melted dark chocolate. A tiny pinch of salt really makes the chocolate pop. Want it extra fudgy? Add 1 tbsp of chocolate syrup before blending.</p>
-          </div>
-        </section>
+    </div>
+
+    <div class="recipe-body">
+
+      <section class="recipe-intro">
+        <p>
+          This ice cream is so smooth, rich, and creamy I don't need to buy ice cream ever again. Maybe I'm getting a little ahead of myself — but this is good. It doesn't take a lot to have enough either. Similar to the vanilla ice cream, because it's so rich and heavy you're satisfied after just a few bites. A perfect post-dinner dessert.
+        </p>
+        <p>
+          Just make sure you have something to put it in before you make it.
+        </p>
+      </section>
+
+      <div class="affiliate-callout">
+        <p>
+          <strong>Uses the Ninja Auto-iQ Blender.</strong> This recipe only works as well as it does because of that machine.
+          <a href="https://amzn.to/4w9oRVo" target="_blank" rel="nofollow sponsored noopener">→ Grab it on Amazon</a>
+        </p>
+        <p class="ftc-disclosure">Affiliate link — I earn a small commission at no cost to you.</p>
       </div>
-    </div>
-  </div>
 
-  <div class="recipe-rating">
-    <p class="rating-title">Honest Rating</p>
-    <div class="rating-pending">
-      <span class="rating-pending-icon">⏳</span>
-      <p class="rating-pending-text"><strong>Testing now...</strong> Tom hasn't posted his verdict on this one yet. Check back soon.</p>
-    </div>
-  </div>
-</main>
+      <div class="two-col">
 
-<script>
-  const baseServings = 6; let currentServings = 6;
-  const ingredients = [
-    { amount: 2,   unit: 'cup',  name: 'heavy cream (35%)' },
-    { amount: 14,  unit: 'oz',   name: 'sweetened condensed milk (1 can)' },
-    { amount: 3,   unit: 'tbsp', name: 'unsweetened cocoa powder' },
-    { amount: 1,   unit: 'tsp',  name: 'vanilla extract' },
-  ];
-  function formatAmount(val) { if (val === 0) return '—'; const whole = Math.floor(val); const frac = val - whole; const fracs = { 0.25: '¼', 0.5: '½', 0.75: '¾', 0.333: '⅓', 0.667: '⅔' }; const fracStr = fracs[Math.round(frac * 1000) / 1000] || (frac > 0 ? frac.toFixed(2) : ''); return whole > 0 ? `${whole}${fracStr}` : fracStr || val.toString(); }
-  function renderIngredients() { const ratio = currentServings / baseServings; document.getElementById('ingredients-list').innerHTML = ingredients.map(ing => { const scaled = ing.amount * ratio; const amt = formatAmount(Math.round(scaled * 4) / 4); return `<li><span class="ing-amount">${amt}${ing.unit ? ' ' + ing.unit : ''}</span><span class="ing-name">${ing.name}</span></li>`; }).join(''); }
-  function changeServings(delta) { currentServings = Math.max(1, currentServings + delta); document.getElementById('servings-count').textContent = currentServings; renderIngredients(); }
-  const timers = {};
-  function startTimer(btnId, displayId, seconds) { const btn = document.getElementById(btnId); const display = document.getElementById(displayId); if (timers[btnId]) { clearInterval(timers[btnId].interval); btn.classList.remove('running'); btn.querySelector('.icon').textContent = '⏱'; display.textContent = formatTime(timers[btnId].total); delete timers[btnId]; return; } let remaining = seconds; btn.classList.add('running'); btn.querySelector('.icon').textContent = '⏹'; const interval = setInterval(() => { remaining--; display.textContent = formatTime(remaining); if (remaining <= 0) { clearInterval(interval); btn.classList.remove('running'); btn.querySelector('.icon').textContent = '✅'; display.textContent = 'Done!'; delete timers[btnId]; } }, 1000); timers[btnId] = { interval, total: seconds }; }
-  function formatTime(s) { const h = Math.floor(s / 3600); const m = Math.floor((s % 3600) / 60); const sec = s % 60; if (h > 0) return `${h}:${m.toString().padStart(2,'0')}:${sec.toString().padStart(2,'0')}`; return `${m}:${sec.toString().padStart(2,'0')}`; }
-  renderIngredients();
-</script>
+        <section class="ingredients">
+          <h2>Ingredients</h2>
+          <ul>
+            <li>2 cups heavy whipping cream</li>
+            <li>2 tablespoons cacao powder</li>
+            <li>2–4 tablespoons sugar (adjust to taste)</li>
+            <li>1 teaspoon vanilla extract</li>
+            <li>Pinch of salt</li>
+          </ul>
+          <p class="ingredient-note">* Ingredient quantities are approximate — adjust cacao and sugar to your taste preference.</p>
+        </section>
+
+        <section class="steps">
+          <h2>Steps</h2>
+          <ol>
+            <li>Add heavy whipping cream, cacao powder, sugar, vanilla extract, and salt to your Ninja blender.</li>
+            <li>Blend on high until the mixture is thick and creamy — similar to soft-serve consistency.</li>
+            <li>Transfer immediately to a container. Eat as-is or freeze for 1–2 hours for a firmer scoop.</li>
+          </ol>
+          <p class="step-note">No cooking, no ice cream maker, no waiting overnight. That's it.</p>
+        </section>
+
+      </div>
+
+      <section class="ratings">
+        <h2>Honest Rating</h2>
+        <div class="rating-grid">
+          {Object.entries(ratings).map(([key, value]) => (
+            <div class={`rating-row ${value === null ? 'na' : ''}`}>
+              <span class="rating-label">{ratingLabels[key as keyof typeof ratingLabels]}</span>
+              <span class="rating-stars">{stars(value)}</span>
+              <span class="rating-value">{value !== null ? `${value}/5` : 'N/A'}</span>
+            </div>
+          ))}
+        </div>
+        <div class="final-score">
+          <span class="final-label">Final Score</span>
+          <span class="final-number">{finalScore} / 5</span>
+        </div>
+        <p class="verdict">
+          A perfect score across the board. It's two ingredients beyond vanilla ice cream — heavy cream, cacao, sugar — and it somehow hits harder. Rich, creamy, no cooking, no ice cream maker, barely any cleanup. This one earned it.
+        </p>
+      </section>
+
+    </div>
+  </article>
 </Layout>
 
+<style>
+  .recipe-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+    font-family: 'Lato', sans-serif;
+    color: var(--brown);
+  }
+
+  .recipe-hero {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .category-tag {
+    display: inline-block;
+    background: var(--rust);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.75rem;
+    border-radius: 3px;
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.25rem;
+    color: var(--brown);
+    margin: 0 0 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+    color: #6b5340;
+    font-style: italic;
+    margin-bottom: 1.25rem;
+  }
+
+  .final-score-badge {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.25rem;
+    background: var(--brown);
+    color: var(--cream);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+  }
+
+  .score-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .score-out-of {
+    font-size: 1rem;
+    opacity: 0.8;
+    margin-right: 0.5rem;
+  }
+
+  .score-stars {
+    color: var(--tan);
+    font-size: 1rem;
+  }
+
+  .recipe-intro {
+    margin-bottom: 2rem;
+    line-height: 1.75;
+    font-size: 1.05rem;
+  }
+
+  .recipe-intro p + p {
+    margin-top: 1rem;
+  }
+
+  .affiliate-callout {
+    background: var(--tan-light);
+    border-left: 4px solid var(--rust);
+    padding: 1rem 1.25rem;
+    border-radius: 0 6px 6px 0;
+    margin-bottom: 2.5rem;
+  }
+
+  .affiliate-callout p {
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+  .affiliate-callout a {
+    color: var(--rust);
+    font-weight: 700;
+    margin-left: 0.5rem;
+    text-decoration: none;
+  }
+
+  .affiliate-callout a:hover {
+    text-decoration: underline;
+  }
+
+  .ftc-disclosure {
+    margin-top: 0.4rem !important;
+    font-size: 0.8rem !important;
+    color: #7a6050;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  @media (max-width: 600px) {
+    .two-col {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--brown);
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 0.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .ingredients ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .ingredients li {
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.95rem;
+  }
+
+  .ingredient-note {
+    font-size: 0.8rem;
+    color: #7a6050;
+    font-style: italic;
+    margin-top: 0.75rem;
+  }
+
+  .steps ol {
+    padding-left: 1.25rem;
+    margin: 0;
+  }
+
+  .steps li {
+    padding: 0.4rem 0;
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  .step-note {
+    font-size: 0.85rem;
+    color: #7a6050;
+    font-style: italic;
+    margin-top: 0.75rem;
+  }
+
+  .ratings {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2rem;
+  }
+
+  .rating-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .rating-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .rating-row.na {
+    opacity: 0.45;
+  }
+
+  .rating-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .rating-stars {
+    color: var(--tan);
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+  }
+
+  .rating-value {
+    font-size: 0.9rem;
+    color: #6b5340;
+    min-width: 2.5rem;
+    text-align: right;
+  }
+
+  .final-score {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--brown);
+    color: var(--cream);
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    margin-bottom: 1.25rem;
+  }
+
+  .final-label {
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .final-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+
+  .verdict {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #5a4030;
+    font-style: italic;
+    margin: 0;
+  }
+</style>
