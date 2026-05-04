@@ -1,0 +1,72 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="Household Tips" description="Little things Tom has figured out around the house.">
+<style>
+  main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 5rem;
+  }
+  .page-header {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .page-tag {
+    display: inline-block;
+    background: var(--rust);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.65rem;
+    border-radius: 2px;
+    margin-bottom: 0.75rem;
+  }
+  .page-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-weight: 700;
+    color: var(--brown);
+    line-height: 1.15;
+    margin-bottom: 0.5rem;
+  }
+  .page-subtitle {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+  }
+  .empty-state {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+  .empty-icon { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
+  .empty-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--brown);
+    margin-bottom: 0.5rem;
+  }
+  .empty-text { font-size: 0.9rem; color: var(--text-muted); font-style: italic; }
+</style>
+
+<main>
+  <div class="page-header">
+    <span class="page-tag">Household Tips</span>
+    <h1 class="page-title">Household Tips</h1>
+    <p class="page-subtitle">Little things I've figured out around the house. Some obvious in hindsight, some not.</p>
+  </div>
+
+  <div class="empty-state">
+    <span class="empty-icon">🏠</span>
+    <p class="empty-title">Tips coming soon</p>
+    <p class="empty-text">Tom is figuring things out. Check back shortly.</p>
+  </div>
+</main>
+</Layout>

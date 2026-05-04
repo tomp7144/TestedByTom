@@ -1,0 +1,101 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="Simple 3-Ingredient Vanilla Blender Ice Cream" description="Just 3 ingredients, no cooking, no ice cream maker. Blend, freeze, done.">
+<style>
+  main { max-width: 860px; margin: 0 auto; padding: 2.5rem 1.25rem 5rem; }
+  .back-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; margin-bottom: 1.75rem; transition: color 0.2s; }
+  .back-link:hover { color: var(--rust); }
+  .recipe-card { background: var(--warm-white); border: 1px solid var(--border); border-radius: 2px; overflow: hidden; box-shadow: 0 2px 12px rgba(59,42,26,0.06); }
+  .recipe-header { background: var(--brown); color: var(--cream); padding: 2rem 2.25rem 1.75rem; }
+  .recipe-tag { display: inline-block; background: var(--rust); color: white; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.25rem 0.65rem; border-radius: 2px; margin-bottom: 0.75rem; }
+  .recipe-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 700; line-height: 1.2; margin-bottom: 0.6rem; }
+  .recipe-header p { font-size: 0.9rem; color: var(--tan-light); font-style: italic; font-family: 'Playfair Display', serif; }
+  .recipe-body { padding: 2rem 2.25rem; }
+  .servings-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+  .servings-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); }
+  .servings-control { display: flex; align-items: center; gap: 0.5rem; background: var(--cream); border: 1px solid var(--border); border-radius: 2px; padding: 0.25rem 0.5rem; }
+  .servings-btn { background: none; border: none; cursor: pointer; font-size: 1.1rem; color: var(--rust); font-weight: 700; padding: 0 0.3rem; line-height: 1; }
+  .servings-btn:hover { color: var(--brown); }
+  .servings-count { font-weight: 700; font-size: 1rem; min-width: 1.5rem; text-align: center; color: var(--brown); }
+  .recipe-columns { display: grid; grid-template-columns: 1fr 1.6fr; gap: 2.5rem; }
+  @media (max-width: 600px) { .recipe-columns { grid-template-columns: 1fr; } .recipe-body { padding: 1.5rem 1.25rem; } .recipe-header { padding: 1.5rem 1.25rem; } }
+  .section-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rust); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem; }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .ingredients-list { list-style: none; }
+  .ingredients-list li { display: flex; align-items: baseline; gap: 0.5rem; padding: 0.45rem 0; border-bottom: 1px solid var(--tan-light); font-size: 0.9rem; }
+  .ingredients-list li:last-child { border-bottom: none; }
+  .ing-amount { font-weight: 700; color: var(--rust); min-width: 3rem; font-size: 0.85rem; white-space: nowrap; }
+  .ing-name { color: var(--text); }
+  .steps-list { list-style: none; }
+  .step { display: flex; gap: 1rem; margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--tan-light); }
+  .step:last-child { border-bottom: none; margin-bottom: 0; }
+  .step-num { background: var(--brown); color: var(--cream); font-family: 'Playfair Display', serif; font-size: 0.85rem; font-weight: 700; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 0.1rem; }
+  .step-title { font-weight: 700; font-size: 0.85rem; color: var(--brown); margin-bottom: 0.2rem; }
+  .step-text { font-size: 0.88rem; color: var(--text); line-height: 1.55; }
+  .timer-btn { display: inline-flex; align-items: center; gap: 0.35rem; margin-top: 0.5rem; background: var(--green-light); border: 1px solid var(--green); color: var(--green); border-radius: 2px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.3rem 0.65rem; cursor: pointer; transition: background 0.15s, color 0.15s; }
+  .timer-btn:hover { background: var(--green); color: white; }
+  .timer-btn.running { background: var(--rust); border-color: var(--rust); color: white; }
+  .recipe-notes { margin-top: 1.75rem; padding: 1rem 1.25rem; background: var(--cream); border-left: 3px solid var(--tan); border-radius: 0 2px 2px 0; }
+  .recipe-notes .notes-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.35rem; }
+  .recipe-notes p { font-size: 0.875rem; color: var(--text-muted); font-style: italic; }
+</style>
+
+<main>
+  <a href="/recipes" class="back-link">← All Recipes</a>
+  <div class="recipe-card">
+    <div class="recipe-header">
+      <span class="recipe-tag">Dessert · Ninja IQ Blender</span>
+      <h1>Simple 3-Ingredient Vanilla Blender Ice Cream</h1>
+      <p>Just 3 ingredients, no cooking, no ice cream maker. Blend, freeze, done!</p>
+    </div>
+    <div class="recipe-body">
+      <div class="servings-row">
+        <span class="servings-label">Servings</span>
+        <div class="servings-control">
+          <button class="servings-btn" onclick="changeServings(-1)">−</button>
+          <span class="servings-count" id="servings-count">6</span>
+          <button class="servings-btn" onclick="changeServings(1)">+</button>
+        </div>
+      </div>
+      <div class="recipe-columns">
+        <section>
+          <h2 class="section-title">Ingredients</h2>
+          <ul class="ingredients-list" id="ingredients-list"></ul>
+        </section>
+        <section>
+          <h2 class="section-title">Instructions</h2>
+          <ol class="steps-list">
+            <li class="step"><span class="step-num">1</span><div><div class="step-title">Add Everything to the Blender</div><p class="step-text">Pour the heavy cream, sweetened condensed milk, and vanilla extract into your Ninja blender pitcher.</p></div></li>
+            <li class="step"><span class="step-num">2</span><div><div class="step-title">Blend Until Fluffy</div><p class="step-text">Use the Pulse button or Smoothie/Ice Cream preset and blend until smooth and creamy — it should resemble whipped cream.</p>
+              <button class="timer-btn" id="timer-btn-1" onclick="startTimer('timer-btn-1','timer-display-1',60)"><span class="icon">⏱</span> <span id="timer-display-1">1:00</span></button></div></li>
+            <li class="step"><span class="step-num">3</span><div><div class="step-title">Pour Into Container</div><p class="step-text">Pour the mixture into a freezer-safe container and smooth the top.</p></div></li>
+            <li class="step"><span class="step-num">4</span><div><div class="step-title">Freeze Until Firm</div><p class="step-text">Freeze for 6–8 hours or until firm. Scoop and enjoy!</p>
+              <button class="timer-btn" id="timer-btn-2" onclick="startTimer('timer-btn-2','timer-display-2',28800)"><span class="icon">⏱</span> <span id="timer-display-2">8:00:00</span></button></div></li>
+          </ol>
+          <div class="recipe-notes">
+            <p class="notes-label">Notes</p>
+            <p>For extra flavor, add a pinch of salt before blending. Want mix-ins? Stir them in by hand after blending, before freezing — sprinkles, crushed cookies, or chocolate chips all work great.</p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  const baseServings = 6; let currentServings = 6;
+  const ingredients = [
+    { amount: 2,   unit: 'cup', name: 'heavy cream (35%)' },
+    { amount: 14,  unit: 'oz',  name: 'sweetened condensed milk (1 can)' },
+    { amount: 1.5, unit: 'tsp', name: 'vanilla extract' },
+  ];
+  function formatAmount(val) { if (val === 0) return '—'; const whole = Math.floor(val); const frac = val - whole; const fracs = { 0.25: '¼', 0.5: '½', 0.75: '¾', 0.333: '⅓', 0.667: '⅔' }; const fracStr = fracs[Math.round(frac * 1000) / 1000] || (frac > 0 ? frac.toFixed(2) : ''); return whole > 0 ? `${whole}${fracStr}` : fracStr || val.toString(); }
+  function renderIngredients() { const ratio = currentServings / baseServings; document.getElementById('ingredients-list').innerHTML = ingredients.map(ing => { const scaled = ing.amount * ratio; const amt = formatAmount(Math.round(scaled * 4) / 4); return `<li><span class="ing-amount">${amt}${ing.unit ? ' ' + ing.unit : ''}</span><span class="ing-name">${ing.name}</span></li>`; }).join(''); }
+  function changeServings(delta) { currentServings = Math.max(1, currentServings + delta); document.getElementById('servings-count').textContent = currentServings; renderIngredients(); }
+  const timers = {};
+  function startTimer(btnId, displayId, seconds) { const btn = document.getElementById(btnId); const display = document.getElementById(displayId); if (timers[btnId]) { clearInterval(timers[btnId].interval); btn.classList.remove('running'); btn.querySelector('.icon').textContent = '⏱'; display.textContent = formatTime(timers[btnId].total); delete timers[btnId]; return; } let remaining = seconds; btn.classList.add('running'); btn.querySelector('.icon').textContent = '⏹'; const interval = setInterval(() => { remaining--; display.textContent = formatTime(remaining); if (remaining <= 0) { clearInterval(interval); btn.classList.remove('running'); btn.querySelector('.icon').textContent = '✅'; display.textContent = 'Done!'; delete timers[btnId]; } }, 1000); timers[btnId] = { interval, total: seconds }; }
+  function formatTime(s) { const h = Math.floor(s / 3600); const m = Math.floor((s % 3600) / 60); const sec = s % 60; if (h > 0) return `${h}:${m.toString().padStart(2,'0')}:${sec.toString().padStart(2,'0')}`; return `${m}:${sec.toString().padStart(2,'0')}`; }
+  renderIngredients();
+</script>
+</Layout>
