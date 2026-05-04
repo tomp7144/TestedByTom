@@ -38,6 +38,11 @@ import Layout from '../../layouts/Layout.astro';
   .rating-final-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brown); }
   .rating-final-score { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--rust); }
   .rating-notes { font-size: 0.875rem; color: var(--text-muted); font-style: italic; line-height: 1.6; font-family: 'Playfair Display', serif; }
+  .rating-affiliate { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+  .rating-affiliate-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.35rem; }
+  .rating-affiliate-link { display: inline-block; font-size: 0.85rem; font-weight: 700; color: var(--rust); text-decoration: none; margin-bottom: 0.25rem; }
+  .rating-affiliate-link:hover { text-decoration: underline; }
+  .rating-affiliate-note { font-size: 0.7rem; color: var(--text-muted); font-style: italic; }
 </style>
 
 <main>
@@ -88,10 +93,15 @@ import Layout from '../../layouts/Layout.astro';
       </div>
       <div class="rating-final">
         <span class="rating-final-label">Final Score</span>
-        <span class="rating-final-score">4.5 / 5</span>
-        <div class="rating-stars"><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star half">★</span></div>
+        <span class="rating-final-score">4.13 / 5</span>
+        <div class="rating-stars"><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star">★</span></div>
       </div>
       <p class="rating-notes">This thing works great and will replace several appliances. The learning curve is real — it has so many modes that it takes time to figure out what you're doing. But once you do, it's remarkably simple. If you cook for a family and want one machine that can genuinely do it all, this is it.</p>
+      <div class="rating-affiliate">
+        <p class="rating-affiliate-label">Get It</p>
+        <a href="https://amzn.to/3R2xlNU" target="_blank" rel="noopener" class="rating-affiliate-link">Ninja Speedi — View on Amazon →</a>
+        <p class="rating-affiliate-note">Affiliate link — I earn a small commission at no cost to you. The Speedi isn't always expensive — keep an eye out and grab it when it goes on sale.</p>
+      </div>
     </div>
 
   </div>
