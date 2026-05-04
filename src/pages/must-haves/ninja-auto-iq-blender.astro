@@ -3,46 +3,36 @@ import Layout from '../../layouts/Layout.astro';
 ---
 <Layout title="The Only Blender That Survives My Daily Routine: Ninja Auto iQ Review" description="If you're constantly making protein shakes or smoothies, a cheap blender is going to burn out. The Ninja Auto iQ is my #1 household must-have.">
 <style>
-  main { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.25rem 5rem; }
+  main { max-width: 860px; margin: 0 auto; padding: 2.5rem 1.25rem 5rem; }
   .back-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; margin-bottom: 1.75rem; transition: color 0.2s; }
   .back-link:hover { color: var(--rust); }
-
-  .post-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .post-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; flex-wrap: wrap; }
   .post-tag { display: inline-block; background: var(--rust); color: white; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.25rem 0.65rem; border-radius: 2px; }
   .post-date { font-size: 0.78rem; color: var(--text-muted); font-style: italic; font-family: 'Playfair Display', serif; }
-
   .post-title { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 5vw, 2.4rem); font-weight: 700; line-height: 1.15; color: var(--brown); margin-bottom: 0.75rem; }
   .post-subtitle { font-family: 'Playfair Display', serif; font-size: 1rem; font-style: italic; color: var(--text-muted); margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); line-height: 1.6; }
-
-  .post-body { font-size: 1rem; line-height: 1.8; color: var(--text); }
-  .post-body p { margin-bottom: 1.5rem; }
-  .post-body h2 { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--brown); margin: 2.5rem 0 0.85rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
-  .post-body strong { color: var(--brown); font-weight: 700; }
-
-  .product-image-wrap { display: flex; justify-content: center; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
-  .product-image { width: 100%; max-width: 320px; height: auto; border-radius: 2px; }
-
-  /* ── FEATURE LIST ── */
-  .feature-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem; }
-  .feature-item { background: var(--warm-white); border: 1px solid var(--border); border-left: 3px solid var(--rust); border-radius: 0 2px 2px 0; padding: 1rem 1.25rem; }
-  .feature-title { font-weight: 700; font-size: 0.9rem; color: var(--brown); margin-bottom: 0.3rem; }
-  .feature-text { font-size: 0.88rem; color: var(--text-muted); line-height: 1.55; }
-
-  /* ── DOWNSIDE ── */
-  .downside-box { background: var(--cream); border: 1px solid var(--border); border-left: 3px solid var(--tan); border-radius: 0 2px 2px 0; padding: 1rem 1.25rem; margin-bottom: 2rem; }
-  .downside-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.35rem; }
-  .downside-text { font-size: 0.88rem; color: var(--text-muted); font-style: italic; line-height: 1.55; }
-
-  /* ── BUY BOX ── */
-  .buy-box { background: var(--brown); color: var(--cream); border-radius: 2px; padding: 1.5rem 1.75rem; margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
-  .buy-box-text {}
-  .buy-box-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--tan); margin-bottom: 0.35rem; }
-  .buy-box-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; color: var(--cream); }
-  .buy-btn { display: inline-block; background: var(--rust); color: white; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.65rem 1.25rem; border-radius: 2px; text-decoration: none; white-space: nowrap; transition: background 0.2s; }
+  .product-hero { display: grid; grid-template-columns: 280px 1fr; gap: 2.5rem; align-items: start; background: var(--warm-white); border: 1px solid var(--border); border-radius: 2px; padding: 2rem; margin-bottom: 2.5rem; }
+  @media (max-width: 620px) { .product-hero { grid-template-columns: 1fr; } }
+  .product-hero-image { width: 100%; height: auto; border-radius: 2px; display: block; }
+  .product-hero-info { display: flex; flex-direction: column; gap: 1.25rem; }
+  .product-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--brown); line-height: 1.2; }
+  .product-quick-stats { display: flex; flex-direction: column; gap: 0.5rem; }
+  .quick-stat { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.85rem; color: var(--text); line-height: 1.4; }
+  .quick-stat-icon { font-size: 1rem; width: 1.25rem; text-align: center; flex-shrink: 0; margin-top: 0.1rem; }
+  .quick-stat strong { color: var(--brown); }
+  .buy-btn { display: flex; align-items: center; justify-content: center; background: var(--rust); color: white; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.85rem 1.5rem; border-radius: 2px; text-decoration: none; transition: background 0.2s; }
   .buy-btn:hover { background: #a84825; }
-  .affiliate-note { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.4rem; font-style: italic; }
-
-  /* ── VERDICT ── */
+  .affiliate-note { font-size: 0.68rem; color: var(--text-muted); font-style: italic; text-align: center; }
+  .post-body { font-size: 1rem; line-height: 1.8; color: var(--text); margin-bottom: 2rem; }
+  .post-body p { margin-bottom: 1.5rem; }
+  .post-body h2 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--brown); margin: 2rem 0 0.85rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+  .feature-list { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 2rem; }
+  .feature-item { background: var(--warm-white); border: 1px solid var(--border); border-left: 3px solid var(--rust); border-radius: 0 2px 2px 0; padding: 0.9rem 1.25rem; }
+  .feature-title { font-weight: 700; font-size: 0.88rem; color: var(--brown); margin-bottom: 0.25rem; }
+  .feature-text { font-size: 0.875rem; color: var(--text-muted); line-height: 1.55; }
+  .downside-box { background: var(--cream); border: 1px solid var(--border); border-left: 3px solid var(--tan); border-radius: 0 2px 2px 0; padding: 1rem 1.25rem; margin-bottom: 2.5rem; }
+  .downside-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.35rem; }
+  .downside-text { font-size: 0.875rem; color: var(--text-muted); font-style: italic; line-height: 1.55; }
   .verdict { background: var(--warm-white); border: 1px solid var(--border); border-radius: 2px; padding: 1.75rem 2rem; }
   .verdict-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rust); margin-bottom: 1.1rem; display: flex; align-items: center; gap: 0.6rem; }
   .verdict-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
@@ -58,7 +48,7 @@ import Layout from '../../layouts/Layout.astro';
   .rating-final { display: flex; align-items: center; gap: 0.75rem; padding-top: 1rem; border-top: 1px solid var(--border); margin-bottom: 1.25rem; }
   .rating-final-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brown); }
   .rating-final-score { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--rust); }
-  .verdict-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; }
+  .verdict-text { font-size: 0.875rem; color: var(--text-muted); font-style: italic; line-height: 1.6; font-family: 'Playfair Display', serif; }
 </style>
 
 <main>
@@ -70,59 +60,63 @@ import Layout from '../../layouts/Layout.astro';
   </div>
 
   <h1 class="post-title">The Only Blender That Survives My Daily Routine: Ninja Auto iQ Review</h1>
-  <p class="post-subtitle">If you're constantly making protein shakes, mixing in supplements, or just trying to quickly blend up a smoothie the kids will actually drink before school, a cheap blender is going to burn out. Trust me.</p>
+  <p class="post-subtitle">If you're constantly making protein shakes, mixing in supplements, or just trying to blend up a smoothie the kids will actually drink before school, a cheap blender is going to burn out. Trust me.</p>
 
-  <div class="post-body">
-    <div class="product-image-wrap">
-      <img src="https://m.media-amazon.com/images/I/714AwxiuijL._AC_SL1500_.jpg" alt="Ninja Auto iQ Blender" class="product-image" />
-    </div>
-    <p>Enter the Ninja Auto iQ. This isn't just a blender — it's a jet engine for your kitchen counter, and it is easily my #1 household must-have.</p>
-
-    <h2>Why It Works</h2>
-    <ul class="feature-list">
-      <li class="feature-item">
-        <p class="feature-title">The Auto iQ Feature is Foolproof</p>
-        <p class="feature-text">You press one button and walk away. It pulses, pauses, and blends on its own, pulling all the ingredients down. No more taking the lid off to furiously stab a frozen strawberry with a spoon.</p>
-      </li>
-      <li class="feature-item">
-        <p class="feature-title">Texture is Everything</p>
-        <p class="feature-text">When you're trying to consume as much protein as possible, nobody wants a chalky, clumpy shake. This thing completely pulverizes ice, frozen fruit, and powders — including my daily 5g of creatine — into a perfectly smooth consistency.</p>
-      </li>
-      <li class="feature-item">
-        <p class="feature-title">Easy Cleanup</p>
-        <p class="feature-text">The blades come out and the pitchers are dishwasher safe. Less time cleaning, more time doing literally anything else.</p>
-      </li>
-    </ul>
-
-    <div class="downside-box">
-      <p class="downside-label">The One Downside — Because I'm Honest</p>
-      <p class="downside-text">It is aggressively loud. If you fire this up at 5:30 AM, everyone in the house is waking up. But for the consistency it delivers, it's worth the noise.</p>
-    </div>
-
-    <div class="buy-box">
-      <div class="buy-box-text">
-        <p class="buy-box-label">Get It</p>
-        <p class="buy-box-title">Ninja Auto iQ Blender</p>
-        <p class="affiliate-note">Affiliate link — I earn a small commission at no cost to you.</p>
+  <div class="product-hero">
+    <img src="https://m.media-amazon.com/images/I/714AwxiuijL._AC_SL1500_.jpg" alt="Ninja Auto iQ Blender" class="product-hero-image" />
+    <div class="product-hero-info">
+      <p class="product-name">Ninja Auto iQ Blender</p>
+      <div class="product-quick-stats">
+        <div class="quick-stat"><span class="quick-stat-icon">✅</span><span><strong>One-button Auto iQ</strong> — press and walk away</span></div>
+        <div class="quick-stat"><span class="quick-stat-icon">✅</span><span><strong>Dishwasher safe</strong> — blades come out</span></div>
+        <div class="quick-stat"><span class="quick-stat-icon">✅</span><span><strong>Pulverizes ice, frozen fruit &amp; powders</strong> completely smooth every time</span></div>
+        <div class="quick-stat"><span class="quick-stat-icon">⚠️</span><span><strong>Loud</strong> — not a 5:30 AM blender</span></div>
       </div>
       <a href="https://amzn.to/4w9oRVo" target="_blank" rel="noopener" class="buy-btn">View on Amazon →</a>
-    </div>
-
-    <div class="verdict">
-      <p class="verdict-label">Tested By Tom Verdict</p>
-      <div class="rating-grid">
-        <div class="rating-item"><span class="rating-label">Ease of Use</span><div class="rating-stars"><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="rating-score">5.0</span></div></div>
-        <div class="rating-item"><span class="rating-label">Learning Curve</span><div class="rating-stars"><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="rating-score">5.0</span></div></div>
-        <div class="rating-item"><span class="rating-label">Results</span><div class="rating-stars"><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="rating-score">5.0</span></div></div>
-        <div class="rating-item"><span class="rating-label">Versatility</span><div class="rating-stars"><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star half">★</span><span class="star">★</span><span class="rating-score">3.5</span></div></div>
-      </div>
-      <div class="rating-final">
-        <span class="rating-final-label">Final Score</span>
-        <span class="rating-final-score">5 / 5</span>
-        <div class="rating-stars"><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span></div>
-      </div>
-      <p class="verdict-text">I use it daily. It saves me time, keeps my nutrition on track, and hasn't died on me yet. If you're serious about protein shakes or smoothies, stop buying cheap blenders and just get this one.</p>
+      <p class="affiliate-note">Affiliate link — I earn a small commission at no cost to you.</p>
     </div>
   </div>
+
+  <div class="post-body">
+    <p>Enter the Ninja Auto iQ. This isn't just a blender — it's a jet engine for your kitchen counter, and it is easily my #1 household must-have.</p>
+    <h2>Why It Works</h2>
+  </div>
+
+  <ul class="feature-list">
+    <li class="feature-item">
+      <p class="feature-title">The Auto iQ Feature is Foolproof</p>
+      <p class="feature-text">You press one button and walk away. It pulses, pauses, and blends on its own, pulling all the ingredients down. No more taking the lid off to furiously stab a frozen strawberry with a spoon.</p>
+    </li>
+    <li class="feature-item">
+      <p class="feature-title">Texture is Everything</p>
+      <p class="feature-text">When you're trying to consume as much protein as possible, nobody wants a chalky, clumpy shake. This thing completely pulverizes ice, frozen fruit, and powders — including my daily 5g of creatine — into a perfectly smooth consistency.</p>
+    </li>
+    <li class="feature-item">
+      <p class="feature-title">Easy Cleanup</p>
+      <p class="feature-text">The blades come out and the pitchers are dishwasher safe. Less time cleaning, more time doing literally anything else.</p>
+    </li>
+  </ul>
+
+  <div class="downside-box">
+    <p class="downside-label">The One Downside — Because I'm Honest</p>
+    <p class="downside-text">It is aggressively loud. If you fire this up at 5:30 AM, everyone in the house is waking up. But for the consistency it delivers, it's worth the noise.</p>
+  </div>
+
+  <div class="verdict">
+    <p class="verdict-label">Tested By Tom Verdict</p>
+    <div class="rating-grid">
+      <div class="rating-item"><span class="rating-label">Ease of Use</span><div class="rating-stars"><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="rating-score">5.0</span></div></div>
+      <div class="rating-item"><span class="rating-label">Learning Curve</span><div class="rating-stars"><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="rating-score">5.0</span></div></div>
+      <div class="rating-item"><span class="rating-label">Results</span><div class="rating-stars"><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="rating-score">5.0</span></div></div>
+      <div class="rating-item"><span class="rating-label">Versatility</span><div class="rating-stars"><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star half">★</span><span class="star">★</span><span class="rating-score">3.5</span></div></div>
+    </div>
+    <div class="rating-final">
+      <span class="rating-final-label">Final Score</span>
+      <span class="rating-final-score">4.63 / 5</span>
+      <div class="rating-stars"><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star half">★</span></div>
+    </div>
+    <p class="verdict-text">I use it daily. It saves me time, keeps my nutrition on track, and hasn't died on me yet. If you're serious about protein shakes or smoothies, stop buying cheap blenders and just get this one.</p>
+  </div>
+
 </main>
 </Layout>

@@ -3,26 +3,36 @@ import Layout from '../../layouts/Layout.astro';
 ---
 <Layout title="One Air Fryer to Rule Them All: Ninja Speedi Review" description="It looks like it belongs in an industrial kitchen. But it genuinely replaces several appliances — and that earns it a permanent spot on the counter.">
 <style>
-  main { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.25rem 5rem; }
+  main { max-width: 860px; margin: 0 auto; padding: 2.5rem 1.25rem 5rem; }
   .back-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; margin-bottom: 1.75rem; transition: color 0.2s; }
   .back-link:hover { color: var(--rust); }
-  .post-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .post-meta { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; flex-wrap: wrap; }
   .post-tag { display: inline-block; background: var(--rust); color: white; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.25rem 0.65rem; border-radius: 2px; }
   .post-date { font-size: 0.78rem; color: var(--text-muted); font-style: italic; font-family: 'Playfair Display', serif; }
   .post-title { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 5vw, 2.4rem); font-weight: 700; line-height: 1.15; color: var(--brown); margin-bottom: 0.75rem; }
   .post-subtitle { font-family: 'Playfair Display', serif; font-size: 1rem; font-style: italic; color: var(--text-muted); margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); line-height: 1.6; }
-  .post-body { font-size: 1rem; line-height: 1.8; color: var(--text); }
+  .product-hero { display: grid; grid-template-columns: 280px 1fr; gap: 2.5rem; align-items: start; background: var(--warm-white); border: 1px solid var(--border); border-radius: 2px; padding: 2rem; margin-bottom: 2.5rem; }
+  @media (max-width: 620px) { .product-hero { grid-template-columns: 1fr; } }
+  .product-hero-image { width: 100%; height: auto; border-radius: 2px; display: block; }
+  .product-hero-info { display: flex; flex-direction: column; gap: 1.25rem; }
+  .product-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--brown); line-height: 1.2; }
+  .product-quick-stats { display: flex; flex-direction: column; gap: 0.5rem; }
+  .quick-stat { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.85rem; color: var(--text); line-height: 1.4; }
+  .quick-stat-icon { font-size: 1rem; width: 1.25rem; text-align: center; flex-shrink: 0; margin-top: 0.1rem; }
+  .quick-stat strong { color: var(--brown); }
+  .buy-btn { display: flex; align-items: center; justify-content: center; background: var(--rust); color: white; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.85rem 1.5rem; border-radius: 2px; text-decoration: none; transition: background 0.2s; }
+  .buy-btn:hover { background: #a84825; }
+  .affiliate-note { font-size: 0.68rem; color: var(--text-muted); font-style: italic; text-align: center; }
+  .post-body { font-size: 1rem; line-height: 1.8; color: var(--text); margin-bottom: 2rem; }
   .post-body p { margin-bottom: 1.5rem; }
-  .post-body h2 { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--brown); margin: 2.5rem 0 0.85rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
-  .post-body strong { color: var(--brown); font-weight: 700; }
-  .product-image-wrap { display: flex; justify-content: center; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
-  .product-image { width: 100%; max-width: 320px; height: auto; border-radius: 2px; }
-  .feature-item { background: var(--warm-white); border: 1px solid var(--border); border-left: 3px solid var(--rust); border-radius: 0 2px 2px 0; padding: 1rem 1.25rem; }
-  .feature-title { font-weight: 700; font-size: 0.9rem; color: var(--brown); margin-bottom: 0.3rem; }
-  .feature-text { font-size: 0.88rem; color: var(--text-muted); line-height: 1.55; }
-  .downside-box { background: var(--cream); border: 1px solid var(--border); border-left: 3px solid var(--tan); border-radius: 0 2px 2px 0; padding: 1rem 1.25rem; margin-bottom: 2rem; }
+  .post-body h2 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--brown); margin: 2rem 0 0.85rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+  .feature-list { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 2rem; }
+  .feature-item { background: var(--warm-white); border: 1px solid var(--border); border-left: 3px solid var(--rust); border-radius: 0 2px 2px 0; padding: 0.9rem 1.25rem; }
+  .feature-title { font-weight: 700; font-size: 0.88rem; color: var(--brown); margin-bottom: 0.25rem; }
+  .feature-text { font-size: 0.875rem; color: var(--text-muted); line-height: 1.55; }
+  .downside-box { background: var(--cream); border: 1px solid var(--border); border-left: 3px solid var(--tan); border-radius: 0 2px 2px 0; padding: 1rem 1.25rem; margin-bottom: 2.5rem; }
   .downside-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.35rem; }
-  .downside-text { font-size: 0.88rem; color: var(--text-muted); font-style: italic; line-height: 1.55; }
+  .downside-text { font-size: 0.875rem; color: var(--text-muted); font-style: italic; line-height: 1.55; }
   .verdict { background: var(--warm-white); border: 1px solid var(--border); border-radius: 2px; padding: 1.75rem 2rem; }
   .verdict-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rust); margin-bottom: 1.1rem; display: flex; align-items: center; gap: 0.6rem; }
   .verdict-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
@@ -38,12 +48,7 @@ import Layout from '../../layouts/Layout.astro';
   .rating-final { display: flex; align-items: center; gap: 0.75rem; padding-top: 1rem; border-top: 1px solid var(--border); margin-bottom: 1.25rem; }
   .rating-final-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brown); }
   .rating-final-score { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--rust); }
-  .rating-notes { font-size: 0.875rem; color: var(--text-muted); font-style: italic; line-height: 1.6; font-family: 'Playfair Display', serif; }
-  .rating-affiliate { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border); }
-  .rating-affiliate-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.35rem; }
-  .rating-affiliate-link { display: inline-block; font-size: 0.85rem; font-weight: 700; color: var(--rust); text-decoration: none; margin-bottom: 0.25rem; }
-  .rating-affiliate-link:hover { text-decoration: underline; }
-  .rating-affiliate-note { font-size: 0.7rem; color: var(--text-muted); font-style: italic; }
+  .verdict-text { font-size: 0.875rem; color: var(--text-muted); font-style: italic; line-height: 1.6; font-family: 'Playfair Display', serif; }
 </style>
 
 <main>
@@ -57,58 +62,62 @@ import Layout from '../../layouts/Layout.astro';
   <h1 class="post-title">One Air Fryer to Rule Them All: Ninja Speedi Review</h1>
   <p class="post-subtitle">It looks like it belongs in an industrial kitchen. It's a behemoth. But it genuinely replaces several appliances — and that earns it a permanent spot on the counter.</p>
 
-  <div class="post-body">
-
-    <div class="product-image-wrap">
-      <img src="https://m.media-amazon.com/images/I/71VqX10FbuL._AC_SL1500_.jpg" alt="Ninja Speedi Rapid Cooker & Air Fryer" class="product-image" />
-    </div>
-
-    <p>Unlike a standard air fryer with a pull-out basket, the Ninja Speedi opens from the top — you flip up a hatch like you're climbing out of a tank. Inside is a large crisper plate that sits at two adjustable heights, which means you can cook multiple things at once. Rice on the bottom, chicken up top. One machine, one cook time.</p>
-
-    <p>It has 12 cooking modes, and they actually do different things. This isn't like the "Sport" button on your car that just makes the gas pedal more sensitive — these modes genuinely change how the machine operates.</p>
-
-    <h2>What It Can Do</h2>
-    <ul class="feature-list">
-      <li class="feature-item">
-        <p class="feature-title">Steam, Sear, Bake, Slow Cook &amp; More</p>
-        <p class="feature-text">12 modes that actually behave differently. You're not just getting an air fryer — you're replacing a steamer, a slow cooker, and more in one footprint.</p>
-      </li>
-      <li class="feature-item">
-        <p class="feature-title">Two-Level Cooking</p>
-        <p class="feature-text">The adjustable crisper plate lets you run two things simultaneously. It's one of those features that sounds like a gimmick until you're cooking a full meal in one shot.</p>
-      </li>
-      <li class="feature-item">
-        <p class="feature-title">Speedi Meals Mode</p>
-        <p class="feature-text">The headline feature — supposedly cooks a full meal from scratch in 15 minutes using steam and air fry together. Honestly, I haven't pushed this one enough yet. That's on me. I'll report back.</p>
-      </li>
-    </ul>
-
-    <div class="downside-box">
-      <p class="downside-label">The One Downside — Because I'm Honest</p>
-      <p class="downside-text">There is a real learning curve. This machine will cook things faster than you expect, and you will absolutely have a moment where you open the hatch and think — what is happening in here? Trust it. You might not know what it's doing, but it knows.</p>
-    </div>
-
-    <div class="verdict">
-      <p class="verdict-label">Tested By Tom Verdict</p>
-      <div class="rating-grid">
-        <div class="rating-item"><span class="rating-label">Ease of Use</span><div class="rating-stars"><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="rating-score">5.0</span></div></div>
-        <div class="rating-item"><span class="rating-label">Learning Curve</span><div class="rating-stars"><span class="star full">★</span><span class="star full">★</span><span class="star half">★</span><span class="star">★</span><span class="star">★</span><span class="rating-score">2.5</span></div></div>
-        <div class="rating-item"><span class="rating-label">Results</span><div class="rating-stars"><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star">★</span><span class="rating-score">4.0</span></div></div>
-        <div class="rating-item"><span class="rating-label">Versatility</span><div class="rating-stars"><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="rating-score">5.0</span></div></div>
+  <div class="product-hero">
+    <img src="https://m.media-amazon.com/images/I/71VqX10FbuL._AC_SL1500_.jpg" alt="Ninja Speedi Rapid Cooker & Air Fryer" class="product-hero-image" />
+    <div class="product-hero-info">
+      <p class="product-name">Ninja Speedi Rapid Cooker &amp; Air Fryer</p>
+      <div class="product-quick-stats">
+        <div class="quick-stat"><span class="quick-stat-icon">✅</span><span><strong>12 cooking modes</strong> that actually do different things</span></div>
+        <div class="quick-stat"><span class="quick-stat-icon">✅</span><span><strong>Two-level cooking</strong> — two foods at once</span></div>
+        <div class="quick-stat"><span class="quick-stat-icon">✅</span><span><strong>Replaces several appliances</strong> — steamer, slow cooker, air fryer &amp; more</span></div>
+        <div class="quick-stat"><span class="quick-stat-icon">⚠️</span><span><strong>Real learning curve</strong> — give it time</span></div>
       </div>
-      <div class="rating-final">
-        <span class="rating-final-label">Final Score</span>
-        <span class="rating-final-score">4.13 / 5</span>
-        <div class="rating-stars"><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star">★</span></div>
-      </div>
-      <p class="rating-notes">This thing works great and will replace several appliances. The learning curve is real — it has so many modes that it takes time to figure out what you're doing. But once you do, it's remarkably simple. If you cook for a family and want one machine that can genuinely do it all, this is it.</p>
-      <div class="rating-affiliate">
-        <p class="rating-affiliate-label">Get It</p>
-        <a href="https://amzn.to/3R2xlNU" target="_blank" rel="noopener" class="rating-affiliate-link">Ninja Speedi — View on Amazon →</a>
-        <p class="rating-affiliate-note">Affiliate link — I earn a small commission at no cost to you. The Speedi isn't always expensive — keep an eye out and grab it when it goes on sale.</p>
-      </div>
+      <a href="https://amzn.to/3R2xlNU" target="_blank" rel="noopener" class="buy-btn">View on Amazon →</a>
+      <p class="affiliate-note">Affiliate link — I earn a small commission at no cost to you. Not always expensive — grab it when it goes on sale.</p>
     </div>
-
   </div>
+
+  <div class="post-body">
+    <p>Unlike a standard air fryer with a pull-out basket, the Ninja Speedi opens from the top — you flip up a hatch like you're climbing out of a tank. Inside is a large crisper plate that sits at two adjustable heights, which means you can cook multiple things at once. Rice on the bottom, chicken up top. One machine, one cook time.</p>
+    <p>It has 12 cooking modes, and they actually do different things. This isn't like the "Sport" button on your car that just makes the gas pedal more sensitive — these modes genuinely change how the machine operates.</p>
+    <h2>What It Can Do</h2>
+  </div>
+
+  <ul class="feature-list">
+    <li class="feature-item">
+      <p class="feature-title">Steam, Sear, Bake, Slow Cook &amp; More</p>
+      <p class="feature-text">12 modes that actually behave differently. You're not just getting an air fryer — you're replacing a steamer, a slow cooker, and more in one footprint.</p>
+    </li>
+    <li class="feature-item">
+      <p class="feature-title">Two-Level Cooking</p>
+      <p class="feature-text">The adjustable crisper plate lets you run two things simultaneously. It's one of those features that sounds like a gimmick until you're cooking a full meal in one shot.</p>
+    </li>
+    <li class="feature-item">
+      <p class="feature-title">Speedi Meals Mode</p>
+      <p class="feature-text">The headline feature — supposedly cooks a full meal from scratch in 15 minutes using steam and air fry together. Honestly, I haven't pushed this one enough yet. That's on me. I'll report back.</p>
+    </li>
+  </ul>
+
+  <div class="downside-box">
+    <p class="downside-label">The One Downside — Because I'm Honest</p>
+    <p class="downside-text">There is a real learning curve. This machine will cook things faster than you expect, and you will absolutely have a moment where you open the hatch and think — what is happening in here? Trust it. You might not know what it's doing, but it knows.</p>
+  </div>
+
+  <div class="verdict">
+    <p class="verdict-label">Tested By Tom Verdict</p>
+    <div class="rating-grid">
+      <div class="rating-item"><span class="rating-label">Ease of Use</span><div class="rating-stars"><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="rating-score">5.0</span></div></div>
+      <div class="rating-item"><span class="rating-label">Learning Curve</span><div class="rating-stars"><span class="star full">★</span><span class="star full">★</span><span class="star half">★</span><span class="star">★</span><span class="star">★</span><span class="rating-score">2.5</span></div></div>
+      <div class="rating-item"><span class="rating-label">Results</span><div class="rating-stars"><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star">★</span><span class="rating-score">4.0</span></div></div>
+      <div class="rating-item"><span class="rating-label">Versatility</span><div class="rating-stars"><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="rating-score">5.0</span></div></div>
+    </div>
+    <div class="rating-final">
+      <span class="rating-final-label">Final Score</span>
+      <span class="rating-final-score">4.13 / 5</span>
+      <div class="rating-stars"><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star">★</span></div>
+    </div>
+    <p class="verdict-text">This thing works great and will replace several appliances. The learning curve is real — it has so many modes that it takes time to figure out what you're doing. But once you do, it's remarkably simple. If you cook for a family and want one machine that can genuinely do it all, this is it.</p>
+  </div>
+
 </main>
 </Layout>
