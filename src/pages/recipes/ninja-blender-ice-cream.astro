@@ -37,6 +37,14 @@ import Layout from '../../layouts/Layout.astro';
   .timer-btn:hover { background: var(--green); color: white; }
   .timer-btn.running { background: var(--rust); border-color: var(--rust); color: white; }
   .recipe-notes { margin-top: 1.75rem; padding: 1rem 1.25rem; background: var(--cream); border-left: 3px solid var(--tan); border-radius: 0 2px 2px 0; }
+
+  .recipe-rating { padding: 1.5rem 2.25rem; background: var(--cream); border-top: 1px solid var(--border); }
+  .rating-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rust); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem; }
+  .rating-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .rating-pending { display: flex; align-items: center; gap: 1rem; }
+  .rating-pending-icon { font-size: 1.5rem; }
+  .rating-pending-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.95rem; color: var(--text-muted); line-height: 1.5; }
+  .rating-pending-text strong { color: var(--brown); font-style: normal; }
   .recipe-notes .notes-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.35rem; }
   .recipe-notes p { font-size: 0.875rem; color: var(--text-muted); font-style: italic; }
 </style>
@@ -79,6 +87,14 @@ import Layout from '../../layouts/Layout.astro';
           </div>
         </section>
       </div>
+    </div>
+  </div>
+
+  <div class="recipe-rating">
+    <p class="rating-title">Honest Rating</p>
+    <div class="rating-pending">
+      <span class="rating-pending-icon">⏳</span>
+      <p class="rating-pending-text"><strong>Testing now...</strong> Tom hasn't posted his verdict on this one yet. Check back soon.</p>
     </div>
   </div>
 </main>
@@ -133,3 +149,4 @@ import Layout from '../../layouts/Layout.astro';
   renderIngredients();
 </script>
 </Layout>
+
