@@ -39,8 +39,26 @@ import Layout from '../../layouts/Layout.astro';
   .recipe-notes { margin-top: 1.75rem; padding: 1rem 1.25rem; background: var(--cream); border-left: 3px solid var(--tan); border-radius: 0 2px 2px 0; }
 
   .recipe-rating { padding: 1.5rem 2.25rem; background: var(--cream); border-top: 1px solid var(--border); }
-  .rating-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rust); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem; }
+  .rating-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rust); margin-bottom: 1.1rem; display: flex; align-items: center; gap: 0.6rem; }
   .rating-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .rating-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; margin-bottom: 1.25rem; }
+  .rating-item { display: flex; flex-direction: column; gap: 0.3rem; }
+  .rating-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+  .rating-stars { display: flex; align-items: center; gap: 0.15rem; }
+  .star { font-size: 1rem; color: var(--tan); line-height: 1; }
+  .star.full { color: var(--rust); }
+  .star.half { position: relative; color: var(--tan); }
+  .star.half::before { content: '★'; position: absolute; left: 0; top: 0; width: 50%; overflow: hidden; color: var(--rust); }
+  .rating-score { font-size: 0.78rem; font-weight: 700; color: var(--brown); margin-left: 0.3rem; }
+  .rating-final { display: flex; align-items: center; gap: 0.75rem; padding-top: 1rem; border-top: 1px solid var(--border); margin-bottom: 1.25rem; }
+  .rating-final-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brown); }
+  .rating-final-score { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--rust); }
+  .rating-notes { font-size: 0.875rem; color: var(--text-muted); font-style: italic; line-height: 1.6; font-family: 'Playfair Display', serif; }
+  .rating-affiliate { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+  .rating-affiliate-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.35rem; }
+  .rating-affiliate-link { display: inline-block; font-size: 0.85rem; font-weight: 700; color: var(--rust); text-decoration: none; margin-bottom: 0.25rem; }
+  .rating-affiliate-link:hover { text-decoration: underline; }
+  .rating-affiliate-note { font-size: 0.7rem; color: var(--text-muted); font-style: italic; }
   .rating-pending { display: flex; align-items: center; gap: 1rem; }
   .rating-pending-icon { font-size: 1.5rem; }
   .rating-pending-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.95rem; color: var(--text-muted); line-height: 1.5; }
@@ -92,9 +110,24 @@ import Layout from '../../layouts/Layout.astro';
 
   <div class="recipe-rating">
     <p class="rating-title">Honest Rating</p>
-    <div class="rating-pending">
-      <span class="rating-pending-icon">⏳</span>
-      <p class="rating-pending-text"><strong>Testing now...</strong> Tom hasn't posted his verdict on this one yet. Check back soon.</p>
+    <div class="rating-grid">
+      <div class="rating-item"><span class="rating-label">Prep Ease</span><div class="rating-stars"><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="rating-score">5.0</span></div></div>
+      <div class="rating-item"><span class="rating-label">Cooking Ease</span><div class="rating-stars"><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="rating-score">5.0</span></div></div>
+      <div class="rating-item"><span class="rating-label">Taste</span><div class="rating-stars"><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star half">★</span><span class="star">★</span><span class="rating-score">3.5</span></div></div>
+      <div class="rating-item"><span class="rating-label">Cleanup</span><div class="rating-stars"><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="rating-score">5.0</span></div></div>
+    </div>
+    <div class="rating-final">
+      <span class="rating-final-label">Final Score</span>
+      <span class="rating-final-score">4.63 / 5</span>
+      <div class="rating-stars"><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star half">★</span></div>
+    </div>
+    <p class="rating-notes">This recipe is about as easy as it gets — 3 ingredients, measuring cups, and a blender. That's your entire cleanup.</p>
+    <p class="rating-notes" style="margin-top: 0.75rem;">The ice cream itself is incredibly rich and creamy. Don't let that fool you into thinking that's a good thing in large quantities — this stuff is dense. A few bites and you're done. Everyone in the house enjoyed it, but nobody was going back for a third scoop. That's actually a win if you're trying not to demolish the whole container in one sitting.</p>
+    <p class="rating-notes" style="margin-top: 0.75rem;">Where this recipe really shines is as a base. Toss in some frozen strawberries or blueberries before blending and you've got a completely different ice cream. And if you want a treat for your morning coffee, drop a small scoop in your cup — the richness makes it melt into the coffee beautifully. The simplicity is the point.</p>
+    <div class="rating-affiliate">
+      <p class="rating-affiliate-label">What You'll Need</p>
+      <a href="https://amzn.to/4w9oRVo" target="_blank" rel="noopener" class="rating-affiliate-link">Ninja Auto iQ Blender — View on Amazon →</a>
+      <p class="rating-affiliate-note">Affiliate link — I earn a small commission at no cost to you.</p>
     </div>
   </div>
 </main>
