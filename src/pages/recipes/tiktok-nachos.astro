@@ -1,0 +1,386 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const ratings = {
+  taste: 4,
+  easeOfPrep: 5,
+  cookingEase: 5,
+  cleanup: 5,
+};
+
+const ratingLabels = {
+  taste: "Taste",
+  easeOfPrep: "Setup",
+  cookingEase: "Cooking Ease",
+  cleanup: "Cleanup",
+};
+
+const ratedValues = Object.values(ratings).filter(v => v !== null) as number[];
+const finalScore = (ratedValues.reduce((a, b) => a + b, 0) / ratedValues.length).toFixed(2);
+
+function stars(rating: number | null) {
+  if (rating === null) return "N/A";
+  return "★".repeat(rating) + "☆".repeat(5 - rating);
+}
+---
+
+<Layout title="TikTok Nachos | Tested by Tom">
+  <article class="recipe-page">
+
+    <div class="recipe-hero">
+      <div class="hero-text">
+        <span class="category-tag">Recipe</span>
+        <h1>TikTok Nachos</h1>
+        <p class="subtitle">Two pans. Zero mess. Instant nachos.</p>
+        <div class="final-score-badge">
+          <span class="score-number">{finalScore}</span>
+          <span class="score-out-of">/5</span>
+          <span class="score-stars">★★★★☆</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="recipe-body">
+
+      <section class="recipe-intro">
+        <p>
+          This isn't a nacho recipe that's going to blow you away. It's not trying to. What it is is one of the cleanest, most low-effort nacho setups I've come across — and honestly, the cleanup situation alone earns it a spot in the rotation.
+        </p>
+        <p>
+          The idea is simple: one pan holds your chips, one pan holds all your toppings. You melt everything on the topping pan in the oven, then slide the whole pile right over your chips. That's it. Two pans when you're done. That's the whole pitch.
+        </p>
+        <p>
+          Think of this less as a fixed recipe and more as a framework. The ground beef, cheese, and olives below are just what I used — swap in whatever nachos toppings you want. It works the same either way.
+        </p>
+      </section>
+
+      <div class="recipe-columns">
+
+        <section class="ingredients-section">
+          <h2>Ingredients</h2>
+          <p class="ingredients-note">Serves 2–4. Scale up freely — the method doesn't change.</p>
+          <ul class="ingredients-list">
+            <li>Tortilla chips</li>
+            <li>½ lb ground beef</li>
+            <li>1½ cups shredded cheese (Mexican blend or cheddar)</li>
+            <li>¼ cup sliced black olives</li>
+            <li>½ cup diced bell peppers</li>
+            <li>¼ cup diced onion</li>
+            <li>½ cup queso or salsa</li>
+            <li>Cooking spray (Pam)</li>
+          </ul>
+          <p class="ingredients-note" style="margin-top: 1rem;">
+            <strong>Optional add-ons:</strong> jalapeños, sour cream (add after), guacamole (add after), hot sauce, refried beans, corn.
+          </p>
+        </section>
+
+        <section class="steps-section">
+          <h2>Instructions</h2>
+          <ol class="steps-list">
+            <li>
+              <strong>Brown the beef.</strong> Cook ground beef in a skillet over medium-high heat until done. Drain the fat and set aside.
+            </li>
+            <li>
+              <strong>Prep the topping pan.</strong> Spray your topping pan generously with cooking spray. Don't go light here — this is what makes the slide work cleanly at the end.
+            </li>
+            <li>
+              <strong>Load it up.</strong> Layer the beef onto the greased pan, then pile on your cheese, olives, peppers, onion, and any other toppings. Pour queso or salsa over the top.
+            </li>
+            <li>
+              <strong>Set up the chip pan.</strong> Spread your chips in an even layer on the second pan. If you like them warm and a little toasted, pop this pan in the oven too.
+            </li>
+            <li>
+              <strong>Bake.</strong> 375°F for 5–8 minutes, or until the cheese is fully melted and bubbly.
+            </li>
+            <li>
+              <strong>The slide.</strong> Pull both pans out. Tilt the topping pan over your chip pan and let everything slide right on top. Done.
+            </li>
+          </ol>
+        </section>
+
+      </div>
+
+      <section class="tips-section">
+        <h2>Notes</h2>
+        <ul class="tips-list">
+          <li><strong>Don't skip the Pam.</strong> The whole payoff of this method is the slide — a well-greased pan makes it effortless. A dry pan makes it a scraping job.</li>
+          <li><strong>Cold toppings go on after.</strong> Sour cream, guac, and fresh salsa should go on after the slide, not in the oven.</li>
+          <li><strong>Match your pan sizes.</strong> You want the topping pan to be close to the same size as the chip pan so you're not pouring off the edge.</li>
+          <li><strong>This is a template.</strong> Ground beef is just what I used. Pulled pork, rotisserie chicken, black beans — all work the same way.</li>
+        </ul>
+      </section>
+
+      <section class="rating-section">
+        <h2>The Verdict</h2>
+        <p>
+          Not trying to win any awards here. But as a quick weeknight nacho situation with minimal cleanup? It absolutely delivers. The two-pan method is genuinely smart — your chips stay crisp, your toppings melt perfectly, and you're looking at two pans in the sink when it's over. The taste is solid nacho taste, nothing more, nothing less. The method is what makes it worth trying.
+        </p>
+
+        <div class="rating-grid">
+          {Object.entries(ratings).map(([key, value]) => (
+            <div class="rating-row">
+              <span class="rating-label">{ratingLabels[key as keyof typeof ratingLabels]}</span>
+              <span class="rating-stars">{stars(value)}</span>
+              <span class="rating-value">{value !== null ? `${value}/5` : "N/A"}</span>
+            </div>
+          ))}
+          <div class="rating-row final-rating-row">
+            <span class="rating-label">Final Score</span>
+            <span class="rating-stars">★★★★☆</span>
+            <span class="rating-value">{finalScore}/5</span>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .recipe-page {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+    font-family: 'Lato', sans-serif;
+    color: var(--brown);
+  }
+
+  .recipe-hero {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2.5rem 2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .category-tag {
+    display: inline-block;
+    background: var(--rust);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+  }
+
+  .recipe-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: var(--brown);
+    margin: 0 0 0.5rem;
+    line-height: 1.2;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+    color: var(--tan);
+    margin: 0 0 1.5rem;
+    font-style: italic;
+  }
+
+  .final-score-badge {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.25rem;
+    background: var(--brown);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+  }
+
+  .score-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .score-out-of {
+    font-size: 1rem;
+    opacity: 0.8;
+    margin-right: 0.5rem;
+  }
+
+  .score-stars {
+    color: var(--tan);
+    font-size: 1rem;
+  }
+
+  .recipe-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .recipe-intro p {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    margin: 0 0 1rem;
+  }
+
+  .recipe-columns {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  @media (max-width: 640px) {
+    .recipe-columns {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .ingredients-section,
+  .steps-section {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.5rem;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--brown);
+    margin: 0 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--tan-light);
+  }
+
+  .ingredients-note {
+    font-size: 0.9rem;
+    color: var(--tan);
+    font-style: italic;
+    margin: 0 0 1rem;
+  }
+
+  .ingredients-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .ingredients-list li {
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.975rem;
+  }
+
+  .ingredients-list li:last-child {
+    border-bottom: none;
+  }
+
+  .steps-list {
+    padding-left: 1.25rem;
+    margin: 0;
+  }
+
+  .steps-list li {
+    padding: 0.5rem 0 0.5rem 0.25rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.975rem;
+    line-height: 1.65;
+  }
+
+  .steps-list li:last-child {
+    border-bottom: none;
+  }
+
+  .tips-section {
+    background: var(--tan-light);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.5rem;
+  }
+
+  .tips-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .tips-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.975rem;
+    line-height: 1.65;
+  }
+
+  .tips-list li:last-child {
+    border-bottom: none;
+  }
+
+  .rating-section {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.5rem;
+  }
+
+  .rating-section p {
+    font-size: 1rem;
+    line-height: 1.75;
+    margin-bottom: 1.5rem;
+  }
+
+  .rating-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .rating-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr auto;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+    gap: 1rem;
+  }
+
+  .rating-row:last-child {
+    border-bottom: none;
+  }
+
+  .rating-label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--brown);
+  }
+
+  .rating-stars {
+    color: var(--rust);
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+  }
+
+  .rating-value {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--brown);
+    text-align: right;
+  }
+
+  .final-rating-row {
+    background: var(--brown);
+    color: white;
+    border-radius: 6px;
+    padding: 0.6rem 0.75rem;
+    margin-top: 0.25rem;
+  }
+
+  .final-rating-row .rating-label {
+    color: white;
+  }
+
+  .final-rating-row .rating-stars {
+    color: var(--tan);
+  }
+
+  .final-rating-row .rating-value {
+    color: white;
+  }
+</style>

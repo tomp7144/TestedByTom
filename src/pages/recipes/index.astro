@@ -3,188 +3,223 @@ import Layout from '../../layouts/Layout.astro';
 
 const recipes = [
   {
-    slug: 'chicken-bites',
-    title: 'Crispy Air-Fried Chicken Bites & Potato Wedges',
-    tag: 'Allium-Free · Air Fryer',
-    description: 'Highly scalable for your daily protein goals and a guaranteed win with the kids. Cubing the chicken speeds up cooking time significantly.',
-    rating: '3.75 / 5',
+    title: "TikTok Nachos",
+    slug: "tiktok-nachos",
+    description: "Two pans. Zero mess. Instant nachos.",
+    score: "4.75",
+    stars: "★★★★★",
   },
   {
-    slug: 'ninja-blender-ice-cream',
-    title: 'Ninja Blender Ice Cream',
-    tag: 'Dessert · Ninja IQ Blender',
-    description: 'Creamy 5-minute ice cream made right in your Ninja IQ blender — no ice cream maker needed.',
-    rating: null,
+    title: "Strawberry Banana Smoothie",
+    slug: "strawberry-banana-smoothie",
+    description: "Thick, creamy, and stupid easy. The Ninja earns its counter space.",
+    score: "4.75",
+    stars: "★★★★★",
   },
   {
-    slug: 'vanilla-ice-cream',
-    title: 'Simple 3-Ingredient Vanilla Blender Ice Cream',
-    tag: 'Dessert · Ninja IQ Blender',
-    description: 'Just 3 ingredients, no cooking, no ice cream maker. Blend, freeze, done.',
-    rating: null,
+    title: "Vanilla Ice Cream",
+    slug: "vanilla-ice-cream",
+    description: "Four ingredients. No churn. Dangerously good.",
+    score: "4.63",
+    stars: "★★★★★",
   },
   {
-    slug: 'chocolate-ice-cream',
-    title: 'Simple 4-Ingredient Chocolate Blender Ice Cream',
-    tag: 'Dessert · Ninja IQ Blender',
-    description: 'Same easy no-cook method, now with rich chocolate. Deep flavor, minimal effort.',
-    rating: null,
+    title: "Chocolate Ice Cream",
+    slug: "chocolate-ice-cream",
+    description: "Things this simple shouldn't taste this good.",
+    score: "5.00",
+    stars: "★★★★★",
   },
   {
-    slug: 'vanilla-coffee-creamer',
-    title: 'Natural Bliss Vanilla Coffee Creamer',
-    tag: 'Drinks · Ninja IQ Blender',
-    description: 'Homemade vanilla coffee creamer with no cooking required. Just mix and refrigerate.',
-    rating: null,
+    title: "Mini Chocolate Chip Muffins",
+    slug: "mini-chocolate-chip-muffins",
+    description: "A solid first try. My kids aren't letting go of Entenmann's just yet.",
+    score: "3.75",
+    stars: "★★★★☆",
   },
   {
-    slug: 'strawberry-banana-smoothie',
-    title: 'Simple Strawberry Banana Smoothie',
-    tag: 'Drinks · Ninja Auto iQ Blender',
-    description: 'Uber easy, meal replacement-sized, and endlessly customizable. One button and you\'re done.',
-    rating: '4.75 / 5',
+    title: "Chicken Bites",
+    slug: "chicken-bites",
+    description: "Air fried, kid-approved, and on the table in under 30 minutes.",
+    score: "3.75",
+    stars: "★★★★☆",
   },
   {
-    slug: 'mini-chocolate-chip-muffins',
-    title: 'Copycat Mini Chocolate Chip Muffins',
-    tag: 'Baking · Kid-Approved',
-    description: 'Making these from scratch costs pennies on the dollar compared to buying the boxed pouches. Freeze a big batch and your kids always have a snack ready.',
-    rating: null,
+    title: "Ninja Blender Ice Cream",
+    slug: "ninja-blender-ice-cream",
+    description: "Testing now...",
+    score: null,
+    stars: null,
+  },
+  {
+    title: "Vanilla Coffee Creamer",
+    slug: "vanilla-coffee-creamer",
+    description: "Testing now...",
+    score: null,
+    stars: null,
   },
 ];
 ---
-<Layout title="Recipes" description="Real recipes, honest ratings. If it was bad, I'll tell you.">
+
+<Layout title="Recipes | Tested by Tom">
+  <section class="listing-page">
+
+    <div class="listing-header">
+      <span class="category-tag">Recipes</span>
+      <h1>Recipes</h1>
+      <p class="listing-subtitle">Everything I've made, rated honestly. If it was bad, I'll tell you.</p>
+    </div>
+
+    <div class="recipe-grid">
+      {recipes.map((recipe) => (
+        <a href={`/recipes/${recipe.slug}`} class="recipe-card">
+          <div class="card-body">
+            <h2 class="card-title">{recipe.title}</h2>
+            <p class="card-description">{recipe.description}</p>
+          </div>
+          <div class="card-footer">
+            {recipe.score ? (
+              <div class="card-rating">
+                <span class="card-stars">{recipe.stars}</span>
+                <span class="card-score">{recipe.score}/5</span>
+              </div>
+            ) : (
+              <span class="card-testing">Testing now...</span>
+            )}
+            <span class="card-arrow">→</span>
+          </div>
+        </a>
+      ))}
+    </div>
+
+  </section>
+</Layout>
+
 <style>
-  main {
-    max-width: 860px;
+  .listing-page {
+    max-width: 900px;
     margin: 0 auto;
-    padding: 2.5rem 1.25rem 5rem;
+    padding: 2rem 1.5rem 4rem;
+    font-family: 'Lato', sans-serif;
+    color: var(--brown);
   }
-  .page-header {
+
+  .listing-header {
     margin-bottom: 2.5rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid var(--border);
   }
-  .page-tag {
+
+  .category-tag {
     display: inline-block;
     background: var(--rust);
     color: white;
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    padding: 0.25rem 0.65rem;
-    border-radius: 2px;
-    margin-bottom: 0.75rem;
-  }
-  .page-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.8rem, 5vw, 2.8rem);
-    font-weight: 700;
-    color: var(--brown);
-    line-height: 1.15;
-    margin-bottom: 0.5rem;
-  }
-  .page-subtitle {
-    font-size: 0.95rem;
-    color: var(--text-muted);
-    font-style: italic;
-    font-family: 'Playfair Display', serif;
-  }
-  .recipe-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  .recipe-card {
-    background: var(--warm-white);
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    padding: 1.5rem 1.75rem;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
-    box-shadow: 0 2px 8px rgba(59,42,26,0.04);
-  }
-  .recipe-card:hover {
-    border-color: var(--tan);
-    box-shadow: 0 4px 16px rgba(59,42,26,0.08);
-    transform: translateY(-1px);
-  }
-  .recipe-info { flex: 1; }
-  .recipe-tag {
-    display: inline-block;
-    font-size: 0.63rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--rust);
-    margin-bottom: 0.4rem;
-  }
-  .recipe-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: var(--brown);
-    margin-bottom: 0.3rem;
-    line-height: 1.3;
-  }
-  .recipe-desc {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    line-height: 1.5;
-  }
-  .recipe-meta {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 0.4rem;
-    flex-shrink: 0;
-  }
-  .recipe-rating {
-    font-family: 'Playfair Display', serif;
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: var(--rust);
-    white-space: nowrap;
-  }
-  .recipe-arrow {
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
   }
-  @media (max-width: 560px) {
-    .recipe-card { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
-    .recipe-meta { align-items: flex-start; flex-direction: row; }
+
+  .listing-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: var(--brown);
+    margin: 0 0 0.5rem;
+    line-height: 1.2;
+  }
+
+  .listing-subtitle {
+    font-size: 1.05rem;
+    color: var(--tan);
+    font-style: italic;
+    margin: 0;
+  }
+
+  .recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .recipe-card {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: var(--brown);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .recipe-card:hover {
+    border-color: var(--rust);
+    box-shadow: 0 4px 16px rgba(59, 42, 26, 0.08);
+  }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    margin: 0 0 0.5rem;
+    color: var(--brown);
+  }
+
+  .card-description {
+    font-size: 0.9rem;
+    color: var(--tan);
+    margin: 0 0 1.25rem;
+    line-height: 1.55;
+    font-style: italic;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--border);
+    padding-top: 0.75rem;
+  }
+
+  .card-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .card-stars {
+    color: var(--rust);
+    font-size: 0.85rem;
+    letter-spacing: 0.03em;
+  }
+
+  .card-score {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--brown);
+  }
+
+  .card-testing {
+    font-size: 0.85rem;
+    color: var(--tan);
+    font-style: italic;
+  }
+
+  .card-arrow {
+    color: var(--rust);
+    font-size: 1rem;
+    transition: transform 0.2s;
+  }
+
+  .recipe-card:hover .card-arrow {
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 480px) {
+    .recipe-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
-
-<main>
-  <div class="page-header">
-    <span class="page-tag">Recipes</span>
-    <h1 class="page-title">Recipes</h1>
-    <p class="page-subtitle">Tried, tested, and rated honestly. The good, the bad, and the "never again."</p>
-  </div>
-
-  <div class="recipe-list">
-    {recipes.map(recipe => (
-      <a href={`/recipes/${recipe.slug}`} class="recipe-card">
-        <div class="recipe-info">
-          <span class="recipe-tag">{recipe.tag}</span>
-          <p class="recipe-title">{recipe.title}</p>
-          <p class="recipe-desc">{recipe.description}</p>
-        </div>
-        <div class="recipe-meta">
-          {recipe.rating && <span class="recipe-rating">★ {recipe.rating}</span>}
-          <span class="recipe-arrow">View →</span>
-        </div>
-      </a>
-    ))}
-  </div>
-</main>
-</Layout>
