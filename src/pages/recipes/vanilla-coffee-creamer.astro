@@ -41,10 +41,18 @@ import Layout from '../../layouts/Layout.astro';
   .recipe-rating { padding: 1.5rem 2.25rem; background: var(--cream); border-top: 1px solid var(--border); }
   .rating-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rust); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem; }
   .rating-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-  .rating-pending { display: flex; align-items: center; gap: 1rem; }
-  .rating-pending-icon { font-size: 1.5rem; }
-  .rating-pending-text { font-family: 'Fraunces', serif; font-style: italic; font-size: 0.95rem; color: var(--text-muted); line-height: 1.5; }
-  .rating-pending-text strong { color: var(--brown); font-style: normal; }
+  .rating-grid { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.25rem; }
+  .rating-row { display: flex; align-items: center; gap: 0.75rem; font-size: 0.875rem; }
+  .rating-label { min-width: 120px; color: var(--text-muted); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+  .rating-stars { color: var(--rust); letter-spacing: 0.05em; font-size: 0.85rem; }
+  .rating-stars.na { color: var(--border); }
+  .rating-score { font-weight: 700; color: var(--brown); font-size: 0.85rem; }
+  .rating-score.na { color: var(--text-muted); font-weight: 400; }
+  .rating-final { display: flex; align-items: center; justify-content: space-between; padding: 0.85rem 1rem; background: var(--brown); border-radius: 2px; margin-bottom: 1.25rem; }
+  .final-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--tan-light); }
+  .final-score { font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 700; color: var(--cream); }
+  .rating-verdict .verdict-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rust); margin-bottom: 0.5rem; }
+  .rating-verdict p { font-size: 0.9rem; color: var(--text); line-height: 1.6; }
   .recipe-notes .notes-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.35rem; }
   .recipe-notes p { font-size: 0.875rem; color: var(--text-muted); font-style: italic; }
 </style>
@@ -90,9 +98,35 @@ import Layout from '../../layouts/Layout.astro';
 
   <div class="recipe-rating">
     <p class="rating-title">Honest Rating</p>
-    <div class="rating-pending">
-      <span class="rating-pending-icon">⏳</span>
-      <p class="rating-pending-text"><strong>Testing now...</strong> Tom hasn't posted his verdict on this one yet. Check back soon.</p>
+    <div class="rating-grid">
+      <div class="rating-row">
+        <span class="rating-label">Taste</span>
+        <span class="rating-stars">★★★★☆</span>
+        <span class="rating-score">4/5</span>
+      </div>
+      <div class="rating-row">
+        <span class="rating-label">Ease of Prep</span>
+        <span class="rating-stars">★★★★★</span>
+        <span class="rating-score">5/5</span>
+      </div>
+      <div class="rating-row">
+        <span class="rating-label">Cooking Ease</span>
+        <span class="rating-stars na">—</span>
+        <span class="rating-score na">N/A</span>
+      </div>
+      <div class="rating-row">
+        <span class="rating-label">Cleanup</span>
+        <span class="rating-stars">★★★★★</span>
+        <span class="rating-score">5/5</span>
+      </div>
+    </div>
+    <div class="rating-final">
+      <span class="final-label">Final Score</span>
+      <span class="final-score">4.67 / 5</span>
+    </div>
+    <div class="rating-verdict">
+      <p class="verdict-label">Verdict</p>
+      <p>Took me a few attempts to figure out but the secret is simple: don't go nuts on it. Get a 40+ oz container, add the milk and sugar first and swish — not shake — until the sugar dissolves. Then gently pour in the heavy cream and vanilla and swish again. If you shake it hard you end up with watery milk and a separate glob of whipped cream floating on top. (The whipped cream tastes incredible, but that's not what we're making.) Get the technique right and this genuinely replaces your store-bought creamer. Cleanup is measuring cups and that's it.</p>
     </div>
   </div>
 </main>
