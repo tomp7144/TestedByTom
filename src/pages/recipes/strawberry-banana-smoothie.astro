@@ -1,0 +1,193 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="Simple Strawberry Banana Smoothie" description="Uber easy, meal replacement-sized, and endlessly customizable. The Ninja makes quick work of all of it.">
+<style>
+  main { max-width: 860px; margin: 0 auto; padding: 2.5rem 1.25rem 5rem; }
+  .back-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; margin-bottom: 1.75rem; transition: color 0.2s; }
+  .back-link:hover { color: var(--rust); }
+  .recipe-card { background: var(--warm-white); border: 1px solid var(--border); border-radius: 2px; overflow: hidden; box-shadow: 0 2px 12px rgba(59,42,26,0.06); }
+  .recipe-header { background: var(--brown); color: var(--cream); padding: 2rem 2.25rem 1.75rem; }
+  .recipe-tag { display: inline-block; background: var(--rust); color: white; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.25rem 0.65rem; border-radius: 2px; margin-bottom: 0.75rem; }
+  .recipe-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 700; line-height: 1.2; margin-bottom: 0.6rem; }
+  .recipe-header p { font-size: 0.9rem; color: var(--tan-light); font-style: italic; font-family: 'Playfair Display', serif; }
+  .recipe-body { padding: 2rem 2.25rem; }
+  .servings-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+  .servings-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); }
+  .servings-control { display: flex; align-items: center; gap: 0.5rem; background: var(--cream); border: 1px solid var(--border); border-radius: 2px; padding: 0.25rem 0.5rem; }
+  .servings-btn { background: none; border: none; cursor: pointer; font-size: 1.1rem; color: var(--rust); font-weight: 700; padding: 0 0.3rem; line-height: 1; }
+  .servings-btn:hover { color: var(--brown); }
+  .servings-count { font-weight: 700; font-size: 1rem; min-width: 1.5rem; text-align: center; color: var(--brown); }
+  .recipe-columns { display: grid; grid-template-columns: 1fr 1.6fr; gap: 2.5rem; }
+  @media (max-width: 600px) { .recipe-columns { grid-template-columns: 1fr; } .recipe-body { padding: 1.5rem 1.25rem; } .recipe-header { padding: 1.5rem 1.25rem; } }
+  .section-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rust); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem; }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .ingredients-list { list-style: none; }
+  .ingredients-list li { display: flex; align-items: baseline; gap: 0.5rem; padding: 0.45rem 0; border-bottom: 1px solid var(--tan-light); font-size: 0.9rem; }
+  .ingredients-list li:last-child { border-bottom: none; }
+  .ing-amount { font-weight: 700; color: var(--rust); min-width: 3rem; font-size: 0.85rem; white-space: nowrap; }
+  .ing-name { color: var(--text); }
+  .steps-list { list-style: none; }
+  .step { display: flex; gap: 1rem; margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--tan-light); }
+  .step:last-child { border-bottom: none; margin-bottom: 0; }
+  .step-num { background: var(--brown); color: var(--cream); font-family: 'Playfair Display', serif; font-size: 0.85rem; font-weight: 700; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 0.1rem; }
+  .step-title { font-weight: 700; font-size: 0.85rem; color: var(--brown); margin-bottom: 0.2rem; }
+  .step-text { font-size: 0.88rem; color: var(--text); line-height: 1.55; }
+  .recipe-notes { margin-top: 1.75rem; padding: 1rem 1.25rem; background: var(--cream); border-left: 3px solid var(--tan); border-radius: 0 2px 2px 0; }
+  .recipe-notes .notes-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.35rem; }
+  .recipe-notes p { font-size: 0.875rem; color: var(--text-muted); font-style: italic; }
+  .recipe-rating { padding: 1.5rem 2.25rem; background: var(--cream); border-top: 1px solid var(--border); }
+  .rating-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rust); margin-bottom: 1.1rem; display: flex; align-items: center; gap: 0.6rem; }
+  .rating-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .rating-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; margin-bottom: 1.25rem; }
+  .rating-item { display: flex; flex-direction: column; gap: 0.3rem; }
+  .rating-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+  .rating-stars { display: flex; align-items: center; gap: 0.15rem; }
+  .star { font-size: 1rem; color: var(--tan); line-height: 1; }
+  .star.full { color: var(--rust); }
+  .star.half { position: relative; color: var(--tan); }
+  .star.half::before { content: '★'; position: absolute; left: 0; top: 0; width: 50%; overflow: hidden; color: var(--rust); }
+  .rating-score { font-size: 0.78rem; font-weight: 700; color: var(--brown); margin-left: 0.3rem; }
+  .rating-final { display: flex; align-items: center; gap: 0.75rem; padding-top: 1rem; border-top: 1px solid var(--border); margin-bottom: 1.25rem; }
+  .rating-final-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--brown); }
+  .rating-final-score { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--rust); }
+  .rating-notes { font-size: 0.875rem; color: var(--text-muted); font-style: italic; line-height: 1.6; font-family: 'Playfair Display', serif; }
+  .rating-affiliate { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+  .rating-affiliate-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.35rem; }
+  .rating-affiliate-link { display: inline-block; font-size: 0.85rem; font-weight: 700; color: var(--rust); text-decoration: none; margin-bottom: 0.25rem; }
+  .rating-affiliate-link:hover { text-decoration: underline; }
+  .rating-affiliate-note { font-size: 0.7rem; color: var(--text-muted); font-style: italic; }
+</style>
+
+<main>
+  <a href="/recipes" class="back-link">← All Recipes</a>
+
+  <div class="recipe-card">
+    <div class="recipe-header">
+      <span class="recipe-tag">Drinks · Ninja Auto iQ Blender</span>
+      <h1>Simple Strawberry Banana Smoothie</h1>
+      <p>Uber easy, meal replacement-sized, and endlessly customizable. One button and you're done.</p>
+    </div>
+
+    <div class="recipe-body">
+      <div class="servings-row">
+        <span class="servings-label">Servings</span>
+        <div class="servings-control">
+          <button class="servings-btn" onclick="changeServings(-1)">−</button>
+          <span class="servings-count" id="servings-count">1</span>
+          <button class="servings-btn" onclick="changeServings(1)">+</button>
+        </div>
+      </div>
+
+      <div class="recipe-columns">
+        <section>
+          <h2 class="section-title">Ingredients</h2>
+          <ul class="ingredients-list" id="ingredients-list"></ul>
+        </section>
+
+        <section>
+          <h2 class="section-title">Instructions</h2>
+          <ol class="steps-list">
+            <li class="step">
+              <span class="step-num">1</span>
+              <div>
+                <div class="step-title">Add Milk First</div>
+                <p class="step-text">Pour the milk into the blender cup first. This helps the powder blend smoothly without clumping.</p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step-num">2</span>
+              <div>
+                <div class="step-title">Add the PB2</div>
+                <p class="step-text">Add the PB2 powder directly into the milk and give it a quick stir if you can — this prevents it from sticking to the blades dry.</p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step-num">3</span>
+              <div>
+                <div class="step-title">Pile Everything Else In</div>
+                <p class="step-text">Add the frozen strawberries, frozen banana, yogurt, and ice cubes. Lock the lid.</p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step-num">4</span>
+              <div>
+                <div class="step-title">Hit Smoothie</div>
+                <p class="step-text">Press the Smoothie button and let the Auto iQ do its thing. Let it sit for about a minute after the cycle finishes, then give it a few more pulses to finish it off.</p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step-num">5</span>
+              <div>
+                <div class="step-title">Add Any Extras &amp; Serve</div>
+                <p class="step-text">This is a great time to add creatine, protein powder, or anything else you want to throw in. Give it one final pulse and pour.</p>
+              </div>
+            </li>
+          </ol>
+
+          <div class="recipe-notes">
+            <p class="notes-label">Notes</p>
+            <p>The ice cubes aren't strictly necessary since everything is already frozen, but they make the smoothie thicker and colder. Skip them if you prefer a thinner consistency. No banana or PB2 on hand? No problem — just make a straight strawberry smoothie. This recipe is forgiving. One large serving works as a full meal replacement; split it into two smaller glasses if you just want a snack.</p>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div class="recipe-rating">
+      <p class="rating-title">Honest Rating</p>
+      <div class="rating-grid">
+        <div class="rating-item"><span class="rating-label">Taste</span><div class="rating-stars"><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="rating-score">5.0</span></div></div>
+        <div class="rating-item"><span class="rating-label">Ease of Prep</span><div class="rating-stars"><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="rating-score">5.0</span></div></div>
+        <div class="rating-item"><span class="rating-label">Cooking Ease</span><div class="rating-stars"><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="rating-score">5.0</span></div></div>
+        <div class="rating-item"><span class="rating-label">Cleanup</span><div class="rating-stars"><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star">★</span><span class="rating-score">4.0</span></div></div>
+      </div>
+      <div class="rating-final">
+        <span class="rating-final-label">Final Score</span>
+        <span class="rating-final-score">4.75 / 5</span>
+        <div class="rating-stars"><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star full">★</span><span class="star half">★</span></div>
+      </div>
+      <p class="rating-notes">For me this is a perfect smoothie. I can customize it however I want, add more to it, and it tastes incredible. Cleanup is very simple — rinse the cup, done. The Ninja makes quick work of all of it. If you're looking for something that can genuinely replace a meal and takes under two minutes to make, this is it.</p>
+      <div class="rating-affiliate">
+        <p class="rating-affiliate-label">What You'll Need</p>
+        <a href="https://amzn.to/4w9oRVo" target="_blank" rel="noopener" class="rating-affiliate-link">Ninja Auto iQ Blender — View on Amazon →</a>
+        <p class="rating-affiliate-note">Affiliate link — I earn a small commission at no cost to you.</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  const baseServings = 1;
+  let currentServings = 1;
+  const ingredients = [
+    { amount: 0.75, unit: 'cup',  name: 'milk (2% recommended)' },
+    { amount: 1,    unit: 'cup',  name: 'frozen strawberries' },
+    { amount: 0.5,  unit: '',     name: 'frozen banana' },
+    { amount: 1,    unit: '',     name: 'Oikos vanilla yogurt (single serve cup)' },
+    { amount: 0.5,  unit: 'cup',  name: 'PB2 powdered peanut butter' },
+    { amount: 3,    unit: '',     name: 'ice cubes' },
+  ];
+  function formatAmount(val) {
+    if (val === 0) return '—';
+    const whole = Math.floor(val);
+    const frac = val - whole;
+    const fracs = { 0.25: '¼', 0.5: '½', 0.75: '¾', 0.333: '⅓', 0.667: '⅔' };
+    const fracStr = fracs[Math.round(frac * 1000) / 1000] || (frac > 0 ? frac.toFixed(2) : '');
+    return whole > 0 ? `${whole}${fracStr}` : fracStr || val.toString();
+  }
+  function renderIngredients() {
+    const ratio = currentServings / baseServings;
+    document.getElementById('ingredients-list').innerHTML = ingredients.map(ing => {
+      const scaled = ing.amount * ratio;
+      const amt = formatAmount(Math.round(scaled * 4) / 4);
+      return `<li><span class="ing-amount">${amt}${ing.unit ? ' ' + ing.unit : ''}</span><span class="ing-name">${ing.name}</span></li>`;
+    }).join('');
+  }
+  function changeServings(delta) {
+    currentServings = Math.max(1, currentServings + delta);
+    document.getElementById('servings-count').textContent = currentServings;
+    renderIngredients();
+  }
+  renderIngredients();
+</script>
+</Layout>
