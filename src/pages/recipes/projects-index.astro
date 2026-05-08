@@ -1,0 +1,196 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const projects = [
+  {
+    slug: 'compost-barrels',
+    title: 'Failed Rain Barrels → Compost Barrels',
+    description: 'Two barrels that never became a rain collection system find a better purpose. Drilled for drainage and aeration, running a dual-rotation compost setup off the back of the garage.',
+    status: 'In Progress',
+    updated: 'Spring 2026',
+    tags: ['Composting', 'Backyard', 'Sustainability'],
+  },
+  {
+    slug: 'mudroom-shelf',
+    title: 'Mudroom Heavy-Duty Wall Shelf',
+    description: 'Full-span ledger-supported box shelf across the entire 88" mudroom wall. Built to hold seasonal gear, drone equipment, and one adventurous kid.',
+    status: 'Planning',
+    updated: 'May 2026',
+    tags: ['Woodworking', 'Storage', 'DIY'],
+  },
+];
+
+function statusColor(status: string) {
+  if (status === 'Complete') return 'status-complete';
+  if (status === 'In Progress') return 'status-progress';
+  return 'status-planning';
+}
+---
+
+<Layout title="Projects | Tested by Tom" description="Ongoing and planned home projects — documented honestly as they happen.">
+<style>
+  main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 5rem;
+  }
+
+  .page-header {
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .page-header h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+    color: var(--brown);
+    margin-bottom: 0.5rem;
+  }
+
+  .page-header p {
+    font-size: 1rem;
+    color: #6b5340;
+    font-style: italic;
+    font-family: 'Fraunces', serif;
+  }
+
+  .projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .project-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 1.5rem 1.75rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    align-items: start;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 1px 4px rgba(59,42,26,0.05);
+  }
+
+  .project-card:hover {
+    border-color: var(--rust);
+    box-shadow: 0 2px 10px rgba(59,42,26,0.1);
+  }
+
+  .project-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--brown);
+    margin-bottom: 0.4rem;
+  }
+
+  .project-desc {
+    font-size: 0.9rem;
+    color: #5a4030;
+    line-height: 1.6;
+    margin-bottom: 0.75rem;
+  }
+
+  .project-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    color: var(--brown);
+    padding: 0.2rem 0.5rem;
+    border-radius: 2px;
+  }
+
+  .updated {
+    font-size: 0.75rem;
+    color: #7a6050;
+    font-style: italic;
+  }
+
+  .status-badge {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.7rem;
+    border-radius: 2px;
+    white-space: nowrap;
+    align-self: start;
+  }
+
+  .status-planning {
+    background: var(--tan-light);
+    color: var(--brown);
+    border: 1px solid var(--tan);
+  }
+
+  .status-progress {
+    background: #e8f0eb;
+    color: #2d4a3e;
+    border: 1px solid #a8c4b0;
+  }
+
+  .status-complete {
+    background: #f0f0f0;
+    color: #555;
+    border: 1px solid #ccc;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #7a6050;
+    font-style: italic;
+    font-family: 'Fraunces', serif;
+  }
+
+  @media (max-width: 500px) {
+    .project-card {
+      grid-template-columns: 1fr;
+    }
+    .status-badge {
+      align-self: auto;
+      display: inline-block;
+    }
+  }
+</style>
+
+<main>
+  <div class="page-header">
+    <h1>Projects</h1>
+    <p>Ongoing and planned builds — documented honestly as they happen. Some are in progress. Some are still just a good idea.</p>
+  </div>
+
+  <div class="projects-list">
+    {projects.map(project => (
+      <a href={`/projects/${project.slug}`} class="project-card">
+        <div>
+          <div class="project-title">{project.title}</div>
+          <div class="project-desc">{project.description}</div>
+          <div class="project-meta">
+            {project.tags.map(tag => (
+              <span class="tag">{tag}</span>
+            ))}
+            <span class="updated">Updated {project.updated}</span>
+          </div>
+        </div>
+        <span class={`status-badge ${statusColor(project.status)}`}>{project.status}</span>
+      </a>
+    ))}
+  </div>
+</main>
+</Layout>

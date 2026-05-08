@@ -1,0 +1,432 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const project = {
+  title: 'Mudroom Heavy-Duty Wall Shelf',
+  status: 'Planning',
+  started: 'May 2026',
+  specs: [
+    { label: 'Width', value: '88"' },
+    { label: 'Depth', value: '23"' },
+    { label: 'Mount Height', value: '~84–86"' },
+    { label: 'Load Rating', value: '400–600+ lbs' },
+    { label: 'Est. Cost', value: '$120–180' },
+    { label: 'Skill Level', value: 'Intermediate' },
+  ],
+};
+---
+
+<Layout title="Mudroom Shelf | Projects | Tested by Tom" description="Building a full-span heavy-duty wall shelf in the mudroom. Ledger-supported, 88 inches wide, built to handle real weight.">
+<style>
+  main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 5rem;
+    font-family: 'Lato', sans-serif;
+    color: var(--brown);
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #7a6050;
+    text-decoration: none;
+    margin-bottom: 1.75rem;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--rust); }
+
+  /* ── PROJECT HEADER ── */
+  .project-header {
+    background: var(--brown);
+    color: var(--cream);
+    padding: 2rem 2.25rem 1.75rem;
+    border-radius: 2px;
+    margin-bottom: 0;
+    position: relative;
+  }
+
+  .status-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .status-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.65rem;
+    border-radius: 2px;
+    background: var(--tan-light);
+    color: var(--brown);
+  }
+
+  .project-tag {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--tan);
+  }
+
+  .project-header h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.4rem, 4vw, 2.1rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: #fff;
+    margin-bottom: 0.6rem;
+  }
+
+  .project-header .subtitle {
+    font-size: 0.9rem;
+    color: rgba(245,240,232,0.75);
+    font-style: italic;
+    font-family: 'Fraunces', serif;
+  }
+
+  /* ── SPEC BAR ── */
+  .spec-bar {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-top: none;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+
+  .spec-item {
+    flex: 1 1 120px;
+    padding: 1rem 1.25rem;
+    border-right: 1px solid var(--border);
+  }
+  .spec-item:last-child { border-right: none; }
+
+  .spec-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--rust);
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  .spec-value {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--brown);
+  }
+
+  /* ── UPDATE LOG ── */
+  .log-section h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .log-section h2::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .log-entry {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 0 2rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .log-entry:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+
+  .log-date {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #7a6050;
+    letter-spacing: 0.04em;
+    padding-top: 0.2rem;
+    font-style: italic;
+  }
+
+  .log-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 0.4rem;
+  }
+
+  .log-content h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.2rem;
+    color: var(--brown);
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
+
+  .log-content p {
+    font-size: 0.93rem;
+    line-height: 1.75;
+    color: #3a2a1a;
+    margin-bottom: 1rem;
+  }
+
+  .log-content p:last-child { margin-bottom: 0; }
+
+  .log-content ul {
+    margin: 0.5rem 0 1rem 1.25rem;
+    font-size: 0.9rem;
+    color: #3a2a1a;
+    line-height: 1.65;
+  }
+
+  .log-content li { margin-bottom: 0.3rem; }
+
+  /* ── SPECS BLOCK ── */
+  .spec-block {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--rust);
+    padding: 1rem 1.25rem;
+    margin: 1rem 0;
+    border-radius: 0 2px 2px 0;
+  }
+
+  .spec-block-title {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 0.6rem;
+  }
+
+  .spec-block p {
+    font-size: 0.88rem !important;
+    color: #5a4030 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .cut-list {
+    background: var(--brown);
+    color: var(--cream);
+    padding: 1.25rem 1.5rem;
+    margin: 1rem 0;
+    border-radius: 2px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.82rem;
+  }
+
+  .cut-list-title {
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tan);
+    margin-bottom: 0.9rem;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+  }
+
+  .cut-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 0.5rem 1.5rem;
+    padding: 0.45rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    align-items: baseline;
+  }
+
+  .cut-row:last-child { border-bottom: none; }
+  .cut-dims { color: var(--tan); white-space: nowrap; }
+  .cut-mat { color: rgba(245,240,232,0.5); font-size: 0.75rem; white-space: nowrap; }
+
+  /* ── MATERIALS TABLE ── */
+  .materials-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    margin: 1rem 0;
+  }
+
+  .materials-table thead tr {
+    background: var(--brown);
+    color: var(--cream);
+  }
+
+  .materials-table th {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.65rem 0.9rem;
+    text-align: left;
+  }
+
+  .materials-table td {
+    padding: 0.6rem 0.9rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: #3a2a1a;
+  }
+
+  .materials-table tbody tr:nth-child(even) td {
+    background: var(--cream);
+  }
+
+  .materials-table .qty {
+    font-weight: 700;
+    color: var(--rust);
+    white-space: nowrap;
+  }
+
+  .materials-table .cost {
+    font-weight: 700;
+    color: #2d4a3e;
+    white-space: nowrap;
+  }
+
+  .materials-table tfoot td {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    border-top: 2px solid var(--brown);
+    padding-top: 0.75rem;
+  }
+
+  @media (max-width: 580px) {
+    .log-entry {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+    }
+    .log-date { margin-bottom: 0.5rem; }
+    .spec-item { flex: 1 1 100px; }
+    .cut-row { grid-template-columns: 1fr auto; }
+    .cut-mat { display: none; }
+  }
+</style>
+
+<main>
+  <a href="/projects" class="back-link">← All Projects</a>
+
+  <div class="project-header">
+    <div class="status-row">
+      <span class="status-badge">Planning</span>
+      <span class="project-tag">Woodworking · Storage · DIY</span>
+    </div>
+    <h1>Mudroom Heavy-Duty Wall Shelf</h1>
+    <p class="subtitle">Full-span ledger-supported box shelf — built to hold seasonal gear, drone equipment, and one adventurous kid.</p>
+  </div>
+
+  <div class="spec-bar">
+    {project.specs.map(spec => (
+      <div class="spec-item">
+        <span class="spec-label">{spec.label}</span>
+        <span class="spec-value">{spec.value}</span>
+      </div>
+    ))}
+  </div>
+
+  <div class="log-section">
+    <h2>Project Log</h2>
+
+    <div class="log-entry">
+      <div class="log-date">May 2026</div>
+      <div class="log-content">
+        <div class="log-label">Entry 01 — Planning</div>
+        <h3>The Problem & The Plan</h3>
+
+        <p>
+          Our mudroom has an 88-inch wall that's doing absolutely nothing above shoulder height. Coats hang low, shoes pile on the floor, and everything above the hooks is just dead space. We've got drone cases, seasonal bins, and a growing collection of gear that has nowhere to live. That changes.
+        </p>
+
+        <p>
+          The plan is a full-width, wall-anchored box shelf spanning the entire 88" run. Mounted at 84–86" from the floor — above the existing coat hooks, reachable with a step stool. The design uses a full-length 2×4 ledger board screwed into every wall stud as the structural backbone, with a plywood box shell sitting on top of it. Once that ledger is in the wall, it's not coming out without taking the studs with it.
+        </p>
+
+        <p>
+          The design requirements came together quickly:
+        </p>
+
+        <ul>
+          <li>Full 88" wall span</li>
+          <li>23" deep — enough for full-size storage totes and equipment cases</li>
+          <li>Bottom of shelf at 84–86" from floor, clearing all existing hooks</li>
+          <li>400+ lb distributed load capacity</li>
+          <li>Clean painted finish that blends into the wall</li>
+          <li>Kid-resistant — our son has a way of treating shelves like jungle gym rungs</li>
+        </ul>
+
+        <div class="spec-block">
+          <div class="spec-block-title">The Critical Detail — Front Cleat</div>
+          <p>When a kid hangs off the front edge, the load path goes: face board → bottom panel → ledger → studs. The weak point is the face board-to-bottom panel joint. The fix is a 2×2 cleat running the full 88", glued and pocket-screwed to the bottom panel front edge. The face board attaches to this cleat. Don't skip it.</p>
+        </div>
+
+        <h3 style="margin-top: 1.5rem;">Cut List</h3>
+        <div class="cut-list">
+          <div class="cut-list-title">// All Pieces</div>
+          <div class="cut-row"><span>Top Panel</span><span class="cut-dims">88" × 23" × ¾"</span><span class="cut-mat">¾" plywood</span></div>
+          <div class="cut-row"><span>Bottom Panel</span><span class="cut-dims">88" × 22¼" × ¾"</span><span class="cut-mat">¾" plywood</span></div>
+          <div class="cut-row"><span>Back Spine / Nailer</span><span class="cut-dims">88" × 3" × ¾"</span><span class="cut-mat">¾" plywood scrap</span></div>
+          <div class="cut-row"><span>Front Face Board</span><span class="cut-dims">88" × 3½"</span><span class="cut-mat">1×4 pine or MDF</span></div>
+          <div class="cut-row"><span>Front Cleat</span><span class="cut-dims">88" × 1½" × 1½"</span><span class="cut-mat">2×2 pine</span></div>
+          <div class="cut-row"><span>Ledger Board</span><span class="cut-dims">88" × 3½" × 1½"</span><span class="cut-mat">2×4 stud</span></div>
+        </div>
+
+        <h3 style="margin-top: 1.5rem;">Materials & Budget</h3>
+        <table class="materials-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Qty</th>
+              <th>Est. Cost</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>¾" birch plywood (4×8 sheet)</td><td class="qty">2 sheets</td><td class="cost">~$60–80</td></tr>
+            <tr><td>2×4 × 8' stud (ledger)</td><td class="qty">3 boards</td><td class="cost">~$12–15</td></tr>
+            <tr><td>2×2 × 8' (front cleat)</td><td class="qty">2 boards</td><td class="cost">~$8</td></tr>
+            <tr><td>1×4 × 8' pine (face board)</td><td class="qty">3 boards</td><td class="cost">~$18</td></tr>
+            <tr><td>3" GRK / Spax structural screws</td><td class="qty">1 box</td><td class="cost">~$12</td></tr>
+            <tr><td>1-5/8" pocket screws</td><td class="qty">1 box</td><td class="cost">~$8</td></tr>
+            <tr><td>Titebond II wood glue</td><td class="qty">1 bottle</td><td class="cost">~$7</td></tr>
+            <tr><td>Construction adhesive</td><td class="qty">1 tube</td><td class="cost">~$5</td></tr>
+            <tr><td>Wood filler + primer + paint</td><td class="qty">—</td><td class="cost">~$20–25</td></tr>
+          </tbody>
+          <tfoot>
+            <tr><td colspan="2"><strong>Estimated Total</strong></td><td class="cost"><strong>$120–180</strong></td></tr>
+          </tfoot>
+        </table>
+
+        <p style="margin-top: 1rem;">
+          Nothing purchased yet. Next step is a stud-finder pass to map the full 88" span and confirm framing before buying lumber. Will update when the build starts.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</main>
+</Layout>
