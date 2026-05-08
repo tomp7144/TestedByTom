@@ -117,6 +117,12 @@ import Layout from '../layouts/Layout.astro';
     color: var(--rust);
   }
 
+  .allium-def {
+    font-weight: 700;
+    color: var(--brown);
+    font-style: italic;
+  }
+
   /* ── WHAT IS THIS ── */
   .about-box {
     background: var(--brown);
@@ -161,6 +167,7 @@ import Layout from '../layouts/Layout.astro';
       <span class="card-icon">🍳</span>
       <p class="card-title">Recipes</p>
       <p class="card-desc">Real food, honest ratings. If it tasted great but made me feel terrible, you'll know.</p>
+      <p class="card-desc" style="margin-top: 0.5rem;">All recipes on this site are <strong>allium-free</strong> — <span class="allium-def">no onions, no garlic.</span></p>
       <span class="card-arrow">Browse recipes →</span>
     </a>
     <a href="/must-haves" class="category-card">
@@ -174,6 +181,12 @@ import Layout from '../layouts/Layout.astro';
       <p class="card-title">Household Tips</p>
       <p class="card-desc">Little things I've figured out around the house. Some obvious, some not.</p>
       <span class="card-arrow">Read tips →</span>
+    </a>
+    <a href="/projects" class="category-card">
+      <span class="card-icon">🔨</span>
+      <p class="card-title">Projects</p>
+      <p class="card-desc">Ongoing builds and experiments — documented honestly as they happen.</p>
+      <span class="card-arrow">See projects →</span>
     </a>
   </div>
 
