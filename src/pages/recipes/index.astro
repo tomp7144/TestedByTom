@@ -3,223 +3,512 @@ import Layout from '../../layouts/Layout.astro';
 
 const recipes = [
   {
-    title: "TikTok Nachos",
-    slug: "tiktok-nachos",
-    description: "Two pans. Zero mess. Instant nachos.",
-    score: "4.75",
-    stars: "★★★★★",
+    slug: 'chicken-bites',
+    title: 'Crispy Air-Fried Chicken Bites & Potato Wedges',
+    tag: 'Allium-Free · Air Fryer',
+    description: 'Highly scalable for your daily protein goals and a guaranteed win with the kids. Cubing the chicken speeds up cooking time significantly.',
+    rating: '3.75 / 5',
+    category: 'Meal',
+    scores: { overall: 3.75, taste: 4, cleanup: 3, prep: 4, cooking: 4 },
   },
   {
-    title: "Strawberry Banana Smoothie",
-    slug: "strawberry-banana-smoothie",
-    description: "Thick, creamy, and stupid easy. The Ninja earns its counter space.",
-    score: "4.75",
-    stars: "★★★★★",
+    slug: 'vanilla-ice-cream',
+    title: 'Simple 3-Ingredient Vanilla Blender Ice Cream',
+    tag: 'Dessert · Ninja IQ Blender',
+    description: 'Just 3 ingredients, no cooking, no ice cream maker. Blend, freeze, done.',
+    rating: '4.63 / 5',
+    category: 'Dessert',
+    scores: { overall: 4.63, taste: 5, cleanup: 5, prep: 5, cooking: null },
   },
   {
-    title: "Vanilla Ice Cream",
-    slug: "vanilla-ice-cream",
-    description: "Four ingredients. No churn. Dangerously good.",
-    score: "4.63",
-    stars: "★★★★★",
+    slug: 'chocolate-ice-cream',
+    title: 'Simple 4-Ingredient Chocolate Blender Ice Cream',
+    tag: 'Dessert · Ninja IQ Blender',
+    description: 'Same easy no-cook method, now with rich chocolate. Deep flavor, minimal effort.',
+    rating: '5.00 / 5',
+    category: 'Dessert',
+    scores: { overall: 5.00, taste: 5, cleanup: 5, prep: 5, cooking: null },
   },
   {
-    title: "Chocolate Ice Cream",
-    slug: "chocolate-ice-cream",
-    description: "Things this simple shouldn't taste this good.",
-    score: "5.00",
-    stars: "★★★★★",
+    slug: 'strawberry-banana-smoothie',
+    title: 'Strawberry Banana Smoothie',
+    tag: 'Drinks · Ninja IQ Blender',
+    description: 'Simple, fresh, and kid-approved. A go-to smoothie that comes together in minutes.',
+    rating: '4.75 / 5',
+    category: 'Drink',
+    scores: { overall: 4.75, taste: 5, cleanup: 5, prep: 5, cooking: null },
   },
   {
-    title: "Mini Chocolate Chip Muffins",
-    slug: "mini-chocolate-chip-muffins",
-    description: "A solid first try. My kids aren't letting go of Entenmann's just yet.",
-    score: "3.75",
-    stars: "★★★★☆",
+    slug: 'ninja-blender-ice-cream',
+    title: 'Ninja Blender Ice Cream',
+    tag: 'Dessert · Ninja IQ Blender',
+    description: 'Creamy 5-minute ice cream made right in your Ninja IQ blender — no ice cream maker needed.',
+    rating: null,
+    category: 'Dessert',
+    scores: { overall: null, taste: null, cleanup: null, prep: null, cooking: null },
   },
   {
-    title: "Chicken Bites",
-    slug: "chicken-bites",
-    description: "Air fried, kid-approved, and on the table in under 30 minutes.",
-    score: "3.75",
-    stars: "★★★★☆",
+    slug: 'vanilla-coffee-creamer',
+    title: 'Natural Bliss Vanilla Coffee Creamer',
+    tag: 'Drinks · Ninja IQ Blender',
+    description: 'Homemade vanilla coffee creamer with no cooking required. Just mix and refrigerate.',
+    rating: null,
+    category: 'Drink',
+    scores: { overall: null, taste: null, cleanup: null, prep: null, cooking: null },
   },
   {
-    title: "Ninja Blender Ice Cream",
-    slug: "ninja-blender-ice-cream",
-    description: "Testing now...",
-    score: null,
-    stars: null,
-  },
-  {
-    title: "Vanilla Coffee Creamer",
-    slug: "vanilla-coffee-creamer",
-    description: "Took a few tries to nail the technique. Worth it — this actually replaces your store-bought creamer.",
-    score: "4.67",
-    stars: "★★★★★",
+    slug: 'mini-chocolate-chip-muffins',
+    title: 'Copycat Mini Chocolate Chip Muffins',
+    tag: 'Baking · Kid-Approved',
+    description: 'Making these from scratch costs pennies on the dollar compared to buying the boxed pouches. Freeze a big batch and your kids always have a snack ready.',
+    rating: '3.75 / 5',
+    category: 'Dessert',
+    scores: { overall: 3.75, taste: 4, cleanup: 3, prep: 4, cooking: 4 },
   },
 ];
 ---
-
-<Layout title="Recipes | Tested by Tom">
-  <section class="listing-page">
-
-    <div class="listing-header">
-      <span class="category-tag">Recipes</span>
-      <h1>Recipes</h1>
-      <p class="listing-subtitle">Everything I've made, rated honestly. If it was bad, I'll tell you.</p>
-    </div>
-
-    <div class="recipe-grid">
-      {recipes.map((recipe) => (
-        <a href={`/recipes/${recipe.slug}`} class="recipe-card">
-          <div class="card-body">
-            <h2 class="card-title">{recipe.title}</h2>
-            <p class="card-description">{recipe.description}</p>
-          </div>
-          <div class="card-footer">
-            {recipe.score ? (
-              <div class="card-rating">
-                <span class="card-stars">{recipe.stars}</span>
-                <span class="card-score">{recipe.score}/5</span>
-              </div>
-            ) : (
-              <span class="card-testing">Testing now...</span>
-            )}
-            <span class="card-arrow">→</span>
-          </div>
-        </a>
-      ))}
-    </div>
-
-  </section>
-</Layout>
-
+<Layout title="Recipes" description="Real recipes, honest ratings. If it was bad, I'll tell you.">
 <style>
-  .listing-page {
-    max-width: 900px;
+  main {
+    max-width: 860px;
     margin: 0 auto;
-    padding: 2rem 1.5rem 4rem;
-    font-family: 'Lato', sans-serif;
-    color: var(--brown);
+    padding: 2.5rem 1.25rem 5rem;
   }
-
-  .listing-header {
+  .page-header {
     margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
   }
-
-  .category-tag {
+  .page-tag {
     display: inline-block;
     background: var(--rust);
     color: white;
-    font-size: 0.75rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.65rem;
+    border-radius: 2px;
+    margin-bottom: 0.75rem;
+  }
+  .page-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-weight: 700;
+    color: var(--brown);
+    line-height: 1.15;
+    margin-bottom: 0.5rem;
+  }
+  .page-subtitle {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    font-style: italic;
+    font-family: 'Fraunces', serif;
+  }
+  .recipe-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .recipe-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 1.5rem 1.75rem;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    box-shadow: 0 2px 8px rgba(59,42,26,0.04);
+  }
+  .recipe-card:hover {
+    border-color: var(--tan);
+    box-shadow: 0 4px 16px rgba(59,42,26,0.08);
+    transform: translateY(-1px);
+  }
+  .recipe-info { flex: 1; }
+  .recipe-tag {
+    display: inline-block;
+    font-size: 0.63rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 0.4rem;
+  }
+  .recipe-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--brown);
+    margin-bottom: 0.3rem;
+    line-height: 1.3;
+  }
+  .recipe-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .recipe-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.4rem;
+    flex-shrink: 0;
+  }
+  .recipe-rating {
+    font-family: 'Fraunces', serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--rust);
+    white-space: nowrap;
+  }
+  .recipe-arrow {
+    font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    padding: 0.25rem 0.75rem;
-    border-radius: 4px;
+    color: var(--text-muted);
+  }
+
+  /* ── TABLE SECTION ── */
+  .table-section {
+    margin-top: 3.5rem;
+  }
+
+  .table-section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .table-section-header h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--rust);
+    white-space: nowrap;
+  }
+
+  .table-section-header::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .table-controls {
+    display: flex;
+    gap: 0.75rem;
     margin-bottom: 1rem;
+    flex-wrap: wrap;
   }
 
-  .listing-header h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
+  .table-search {
+    flex: 1;
+    min-width: 180px;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.85rem;
     color: var(--brown);
-    margin: 0 0 0.5rem;
-    line-height: 1.2;
+    background: var(--warm-white);
+    outline: none;
+    transition: border-color 0.2s;
   }
 
-  .listing-subtitle {
-    font-size: 1.05rem;
-    color: var(--tan);
-    font-style: italic;
-    margin: 0;
+  .table-search:focus { border-color: var(--rust); }
+
+  .table-filter {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.85rem;
+    color: var(--brown);
+    background: var(--warm-white);
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s;
   }
 
-  .recipe-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 1.25rem;
+  .table-filter:focus { border-color: var(--rust); }
+
+  .recipe-table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 2px;
   }
 
-  .recipe-card {
+  .recipe-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    min-width: 580px;
+  }
+
+  .recipe-table thead tr {
+    background: var(--brown);
+    color: var(--cream);
+  }
+
+  .recipe-table th {
+    padding: 0.65rem 0.9rem;
+    text-align: left;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+  }
+
+  .recipe-table th:hover { background: #5a3d28; }
+  .recipe-table th.sorted { color: var(--tan); }
+
+  .sort-icon {
+    display: inline-block;
+    margin-left: 0.3rem;
+    opacity: 0.5;
+    font-size: 0.6rem;
+  }
+
+  .sort-icon.asc::after { content: '▲'; }
+  .sort-icon.desc::after { content: '▼'; }
+  .sort-icon.none::after { content: '⇅'; }
+
+  .recipe-table td {
+    padding: 0.65rem 0.9rem;
+    border-bottom: 1px solid var(--border);
+    color: #3a2a1a;
+    vertical-align: middle;
+  }
+
+  .recipe-table tbody tr:last-child td { border-bottom: none; }
+
+  .recipe-table tbody tr:nth-child(even) td {
+    background: var(--cream);
+  }
+
+  .recipe-table tbody tr:hover td {
+    background: var(--tan-light);
+  }
+
+  .recipe-table a {
+    color: var(--brown);
+    text-decoration: none;
+    font-weight: 700;
+    font-family: 'Fraunces', serif;
+    font-size: 0.9rem;
+  }
+
+  .recipe-table a:hover { color: var(--rust); }
+
+  .score-val {
+    font-weight: 700;
+    color: var(--rust);
+    font-family: 'Fraunces', serif;
+  }
+
+  .score-na {
+    color: #b0a090;
+    font-size: 0.78rem;
+  }
+
+  .cat-badge {
+    font-size: 0.63rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.5rem;
+    border-radius: 2px;
     background: var(--cream);
     border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 1.5rem;
-    text-decoration: none;
     color: var(--brown);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    white-space: nowrap;
   }
 
-  .recipe-card:hover {
-    border-color: var(--rust);
-    box-shadow: 0 4px 16px rgba(59, 42, 26, 0.08);
-  }
-
-  .card-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
-    margin: 0 0 0.5rem;
-    color: var(--brown);
-  }
-
-  .card-description {
+  .no-results {
+    text-align: center;
+    padding: 2rem;
+    color: #7a6050;
+    font-style: italic;
+    font-family: 'Fraunces', serif;
     font-size: 0.9rem;
-    color: var(--tan);
-    margin: 0 0 1.25rem;
-    line-height: 1.55;
-    font-style: italic;
   }
 
-  .card-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-top: 1px solid var(--border);
-    padding-top: 0.75rem;
-  }
-
-  .card-rating {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
-
-  .card-stars {
-    color: var(--rust);
-    font-size: 0.85rem;
-    letter-spacing: 0.03em;
-  }
-
-  .card-score {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--brown);
-  }
-
-  .card-testing {
-    font-size: 0.85rem;
-    color: var(--tan);
-    font-style: italic;
-  }
-
-  .card-arrow {
-    color: var(--rust);
-    font-size: 1rem;
-    transition: transform 0.2s;
-  }
-
-  .recipe-card:hover .card-arrow {
-    transform: translateX(4px);
-  }
-
-  @media (max-width: 480px) {
-    .recipe-grid {
-      grid-template-columns: 1fr;
-    }
+  @media (max-width: 560px) {
+    .recipe-card { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+    .recipe-meta { align-items: flex-start; flex-direction: row; }
   }
 </style>
+
+<main>
+  <div class="page-header">
+    <span class="page-tag">Recipes</span>
+    <h1 class="page-title">Recipes</h1>
+    <p class="page-subtitle">Tried, tested, and rated honestly. The good, the bad, and the "never again."</p>
+  </div>
+
+  <div class="recipe-list">
+    {recipes.map(recipe => (
+      <a href={`/recipes/${recipe.slug}`} class="recipe-card">
+        <div class="recipe-info">
+          <span class="recipe-tag">{recipe.tag}</span>
+          <p class="recipe-title">{recipe.title}</p>
+          <p class="recipe-desc">{recipe.description}</p>
+        </div>
+        <div class="recipe-meta">
+          {recipe.rating && <span class="recipe-rating">★ {recipe.rating}</span>}
+          <span class="recipe-arrow">View →</span>
+        </div>
+      </a>
+    ))}
+  </div>
+
+  <!-- SORTABLE TABLE -->
+  <div class="table-section">
+    <div class="table-section-header">
+      <h2>All Recipes — Compare & Sort</h2>
+    </div>
+
+    <div class="table-controls">
+      <input
+        type="text"
+        class="table-search"
+        id="recipeSearch"
+        placeholder="Search recipes..."
+        oninput="filterTable()"
+      />
+      <select class="table-filter" id="categoryFilter" onchange="filterTable()">
+        <option value="">All Categories</option>
+        <option value="Meal">Meal</option>
+        <option value="Dessert">Dessert</option>
+        <option value="Drink">Drink</option>
+      </select>
+    </div>
+
+    <div class="recipe-table-wrap">
+      <table class="recipe-table" id="recipeTable">
+        <thead>
+          <tr>
+            <th onclick="sortTable(0)" id="th-0">Recipe <span class="sort-icon none" id="si-0"></span></th>
+            <th onclick="sortTable(1)" id="th-1">Category <span class="sort-icon none" id="si-1"></span></th>
+            <th onclick="sortTable(2)" id="th-2">Overall <span class="sort-icon none" id="si-2"></span></th>
+            <th onclick="sortTable(3)" id="th-3">Taste <span class="sort-icon none" id="si-3"></span></th>
+            <th onclick="sortTable(4)" id="th-4">Prep <span class="sort-icon none" id="si-4"></span></th>
+            <th onclick="sortTable(5)" id="th-5">Cooking <span class="sort-icon none" id="si-5"></span></th>
+            <th onclick="sortTable(6)" id="th-6">Cleanup <span class="sort-icon none" id="si-6"></span></th>
+          </tr>
+        </thead>
+        <tbody id="recipeTableBody">
+          {recipes.map(recipe => (
+            <tr
+              data-name={recipe.title.toLowerCase()}
+              data-category={recipe.category}
+              data-overall={recipe.scores.overall ?? -1}
+              data-taste={recipe.scores.taste ?? -1}
+              data-prep={recipe.scores.prep ?? -1}
+              data-cooking={recipe.scores.cooking ?? -1}
+              data-cleanup={recipe.scores.cleanup ?? -1}
+            >
+              <td><a href={`/recipes/${recipe.slug}`}>{recipe.title}</a></td>
+              <td><span class="cat-badge">{recipe.category}</span></td>
+              <td>{recipe.scores.overall !== null ? <span class="score-val">{recipe.scores.overall.toFixed(2)}</span> : <span class="score-na">—</span>}</td>
+              <td>{recipe.scores.taste !== null ? <span class="score-val">{recipe.scores.taste}</span> : <span class="score-na">—</span>}</td>
+              <td>{recipe.scores.prep !== null ? <span class="score-val">{recipe.scores.prep}</span> : <span class="score-na">—</span>}</td>
+              <td>{recipe.scores.cooking !== null ? <span class="score-val">{recipe.scores.cooking}</span> : <span class="score-na">—</span>}</td>
+              <td>{recipe.scores.cleanup !== null ? <span class="score-val">{recipe.scores.cleanup}</span> : <span class="score-na">—</span>}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <div class="no-results" id="noResults" style="display:none;">No recipes match your search.</div>
+    </div>
+  </div>
+</main>
+
+<script>
+  let sortCol = -1;
+  let sortDir = 'asc';
+
+  function filterTable() {
+    const search = document.getElementById('recipeSearch').value.toLowerCase();
+    const category = document.getElementById('categoryFilter').value;
+    const rows = document.querySelectorAll('#recipeTableBody tr');
+    let visible = 0;
+
+    rows.forEach(row => {
+      const name = row.dataset.name || '';
+      const cat = row.dataset.category || '';
+      const matchSearch = name.includes(search);
+      const matchCat = category === '' || cat === category;
+      if (matchSearch && matchCat) {
+        row.style.display = '';
+        visible++;
+      } else {
+        row.style.display = 'none';
+      }
+    });
+
+    document.getElementById('noResults').style.display = visible === 0 ? 'block' : 'none';
+  }
+
+  function sortTable(col) {
+    const colKeys = ['name', 'category', 'overall', 'taste', 'prep', 'cooking', 'cleanup'];
+    const key = colKeys[col];
+
+    if (sortCol === col) {
+      sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+    } else {
+      sortCol = col;
+      sortDir = col >= 2 ? 'desc' : 'asc'; // default numeric cols to desc (highest first)
+    }
+
+    // Update sort icons
+    for (let i = 0; i < 7; i++) {
+      const icon = document.getElementById('si-' + i);
+      const th = document.getElementById('th-' + i);
+      if (i === col) {
+        icon.className = 'sort-icon ' + sortDir;
+        th.classList.add('sorted');
+      } else {
+        icon.className = 'sort-icon none';
+        th.classList.remove('sorted');
+      }
+    }
+
+    const tbody = document.getElementById('recipeTableBody');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+
+    rows.sort((a, b) => {
+      let aVal = a.dataset[key] || '';
+      let bVal = b.dataset[key] || '';
+
+      if (col >= 2) {
+        aVal = parseFloat(aVal);
+        bVal = parseFloat(bVal);
+        // Push unrated (-1) to bottom regardless of sort direction
+        if (aVal === -1 && bVal === -1) return 0;
+        if (aVal === -1) return 1;
+        if (bVal === -1) return -1;
+        return sortDir === 'asc' ? aVal - bVal : bVal - aVal;
+      } else {
+        return sortDir === 'asc'
+          ? aVal.localeCompare(bVal)
+          : bVal.localeCompare(aVal);
+      }
+    });
+
+    rows.forEach(row => tbody.appendChild(row));
+  }
+</script>
+</Layout>
