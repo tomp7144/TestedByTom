@@ -234,6 +234,34 @@ const project = {
     margin-bottom: 0 !important;
   }
 
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .photo-grid figure {
+    margin: 0;
+  }
+
+  .photo-grid img {
+    width: 100%;
+    border-radius: 2px;
+    border: 1px solid var(--border);
+    display: block;
+    object-fit: cover;
+    aspect-ratio: 4/3;
+  }
+
+  .photo-grid figcaption {
+    font-size: 0.72rem;
+    color: #7a6050;
+    font-style: italic;
+    margin-top: 0.35rem;
+    text-align: center;
+  }
+
   .two-col {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -357,7 +385,22 @@ const project = {
 
         <div class="spec-block tip">
           <div class="spec-block-title">Current Status</div>
-          <p>Barrel 1 is layered and ready. Waiting on the lid clamps to arrive before adding food scraps — keeping pests out is the priority. Weekly Sunday stirring reminder is set. Food scraps start once the lid is secured.</p>
+          <p>Barrel 1 is layered and ready. Clamps are on — lid is secured. Food scraps start next. Weekly Sunday stirring reminder is set.</p>
+        </div>
+
+        <div class="photo-grid">
+          <figure>
+            <img src="/images/compost-barrel-clamps.jpg" alt="Barrel lid secured with metal clamps" />
+            <figcaption>Lid clamps keeping it sealed and pest-proof</figcaption>
+          </figure>
+          <figure>
+            <img src="/images/compost-barrel-side.jpg" alt="Aeration holes drilled around the side of the barrel" />
+            <figcaption>Aeration holes drilled around the outside</figcaption>
+          </figure>
+          <figure>
+            <img src="/images/compost-barrel-bottom.jpg" alt="Drainage holes drilled in the bottom of the barrel" />
+            <figcaption>Drainage holes in the bottom</figcaption>
+          </figure>
         </div>
 
       </div>
