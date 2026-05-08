@@ -1,0 +1,195 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="Classic Mashed Potatoes" description="Creamy, buttery mashed potatoes with a rich finish from sour cream. Simple comfort food done right.">
+<style>
+  main { max-width: 860px; margin: 0 auto; padding: 2.5rem 1.25rem 5rem; }
+  .back-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; margin-bottom: 1.75rem; transition: color 0.2s; }
+  .back-link:hover { color: var(--rust); }
+  .recipe-card { background: var(--warm-white); border: 1px solid var(--border); border-radius: 2px; overflow: hidden; box-shadow: 0 2px 12px rgba(59,42,26,0.06); }
+  .recipe-header { background: var(--brown); color: var(--cream); padding: 2rem 2.25rem 1.75rem; }
+  .recipe-tag { display: inline-block; background: var(--rust); color: white; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.25rem 0.65rem; border-radius: 2px; margin-bottom: 0.75rem; }
+  .recipe-header h1 { font-family: 'Fraunces', serif; font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 700; line-height: 1.2; margin-bottom: 0.6rem; }
+  .recipe-header p { font-size: 0.9rem; color: var(--tan-light); font-style: italic; font-family: 'Fraunces', serif; }
+  .recipe-body { padding: 2rem 2.25rem; }
+  .servings-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+  .servings-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); }
+  .servings-control { display: flex; align-items: center; gap: 0.5rem; background: var(--cream); border: 1px solid var(--border); border-radius: 2px; padding: 0.25rem 0.5rem; }
+  .servings-btn { background: none; border: none; cursor: pointer; font-size: 1.1rem; color: var(--rust); font-weight: 700; padding: 0 0.3rem; line-height: 1; }
+  .servings-btn:hover { color: var(--brown); }
+  .servings-count { font-weight: 700; font-size: 1rem; min-width: 1.5rem; text-align: center; color: var(--brown); }
+  .recipe-columns { display: grid; grid-template-columns: 1fr 1.6fr; gap: 2.5rem; }
+  @media (max-width: 600px) { .recipe-columns { grid-template-columns: 1fr; } .recipe-body { padding: 1.5rem 1.25rem; } .recipe-header { padding: 1.5rem 1.25rem; } }
+  .section-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rust); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem; }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .ingredients-list { list-style: none; }
+  .ingredients-list li { display: flex; align-items: baseline; gap: 0.5rem; padding: 0.45rem 0; border-bottom: 1px solid var(--tan-light); font-size: 0.9rem; }
+  .ingredients-list li:last-child { border-bottom: none; }
+  .ing-amount { font-weight: 700; color: var(--rust); min-width: 3rem; font-size: 0.85rem; white-space: nowrap; }
+  .ing-name { color: var(--text); }
+  .steps-list { list-style: none; }
+  .step { display: flex; gap: 1rem; margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--tan-light); }
+  .step:last-child { border-bottom: none; margin-bottom: 0; }
+  .step-num { background: var(--brown); color: var(--cream); font-family: 'Fraunces', serif; font-size: 0.85rem; font-weight: 700; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 0.1rem; }
+  .step-title { font-weight: 700; font-size: 0.85rem; color: var(--brown); margin-bottom: 0.2rem; }
+  .step-text { font-size: 0.88rem; color: var(--text); line-height: 1.55; }
+  .recipe-notes { margin-top: 1.75rem; padding: 1rem 1.25rem; background: var(--cream); border-left: 3px solid var(--tan); border-radius: 0 2px 2px 0; }
+  .notes-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.35rem; }
+  .recipe-notes p { font-size: 0.875rem; color: var(--text-muted); font-style: italic; line-height: 1.6; }
+  .recipe-rating { padding: 1.5rem 2.25rem; background: var(--cream); border-top: 1px solid var(--border); }
+  .rating-title { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rust); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem; }
+  .rating-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .rating-grid { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.25rem; }
+  .rating-row { display: flex; align-items: center; gap: 0.75rem; font-size: 0.875rem; }
+  .rating-label { min-width: 120px; color: var(--text-muted); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+  .rating-stars { color: var(--rust); letter-spacing: 0.05em; font-size: 0.85rem; }
+  .rating-score { font-weight: 700; color: var(--brown); font-size: 0.85rem; }
+  .rating-final { display: flex; align-items: center; gap: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); margin-bottom: 1rem; }
+  .final-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); }
+  .final-score { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 700; color: var(--rust); }
+  .rating-notes { font-size: 0.875rem; color: var(--text-muted); font-style: italic; line-height: 1.6; font-family: 'Fraunces', serif; }
+</style>
+
+<main>
+  <a href="/recipes" class="back-link">← All Recipes</a>
+
+  <div class="recipe-card">
+    <div class="recipe-header">
+      <span class="recipe-tag">Meal</span>
+      <h1>Classic Mashed Potatoes</h1>
+      <p>Creamy, buttery mashed potatoes with a rich finish from sour cream. Simple comfort food at its best.</p>
+    </div>
+
+    <div class="recipe-body">
+      <div class="servings-row">
+        <span class="servings-label">Servings</span>
+        <div class="servings-control">
+          <button class="servings-btn" onclick="changeServings(-1)">−</button>
+          <span class="servings-count" id="servings-count">4</span>
+          <button class="servings-btn" onclick="changeServings(1)">+</button>
+        </div>
+      </div>
+
+      <div class="recipe-columns">
+        <div>
+          <p class="section-title">Ingredients</p>
+          <ul class="ingredients-list" id="ingredients-list">
+            <li><span class="ing-amount" data-base="2" data-unit="lb">2 lb</span><span class="ing-name">russet potatoes, peeled and cubed</span></li>
+            <li><span class="ing-amount" data-base="4" data-unit="tbsp">4 tbsp</span><span class="ing-name">unsalted butter</span></li>
+            <li><span class="ing-amount" data-base="0.5" data-unit="cup">½ cup</span><span class="ing-name">sour cream</span></li>
+            <li><span class="ing-amount" data-base="0.33" data-unit="cup">⅓ cup</span><span class="ing-name">whole milk, warmed</span></li>
+            <li><span class="ing-amount" data-base="0.75" data-unit="tsp">¾ tsp</span><span class="ing-name">salt</span></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="section-title">Steps</p>
+          <ol class="steps-list">
+            <li class="step">
+              <span class="step-num">1</span>
+              <div>
+                <div class="step-title">Boil the Potatoes</div>
+                <p class="step-text">Place the cubed potatoes in a large pot and cover with cold salted water. Bring to a boil over high heat, then reduce to a steady simmer. Cook until a fork slides in easily, about 15–18 minutes.</p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step-num">2</span>
+              <div>
+                <div class="step-title">Drain and Dry</div>
+                <p class="step-text">Drain thoroughly, then return the potatoes to the warm pot over low heat for 1–2 minutes, shaking gently. This evaporates the extra moisture and keeps your mash fluffy instead of watery.</p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step-num">3</span>
+              <div>
+                <div class="step-title">Mash and Mix</div>
+                <p class="step-text">Remove from heat. Add butter and mash until melted and mostly smooth. Stir in the sour cream and warmed milk, then add the salt. Mash to your preferred consistency — a little texture or fully smooth, your call.</p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="step-num">4</span>
+              <div>
+                <div class="step-title">Taste and Serve</div>
+                <p class="step-text">Taste and adjust salt if needed. Serve hot. An extra pat of butter on top never hurts. These go great alongside kielbasa — seriously, try it.</p>
+              </div>
+            </li>
+          </ol>
+
+          <div class="recipe-notes">
+            <p class="notes-label">Notes</p>
+            <p>Warm your milk before adding — cold milk can make mashed potatoes gluey. Don't over-mix once the milk is in; too much working of the starch turns them paste-like. A potato ricer gives an ultra-smooth result if you have one. And yes, the peeling and cubing is annoying — that's just the deal with potatoes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="recipe-rating">
+      <p class="rating-title">Honest Rating</p>
+      <div class="rating-grid">
+        <div class="rating-row">
+          <span class="rating-label">Taste</span>
+          <span class="rating-stars">★★★★½</span>
+          <span class="rating-score">4.5/5</span>
+        </div>
+        <div class="rating-row">
+          <span class="rating-label">Ease of Prep</span>
+          <span class="rating-stars">★★★☆☆</span>
+          <span class="rating-score">3/5</span>
+        </div>
+        <div class="rating-row">
+          <span class="rating-label">Cooking Ease</span>
+          <span class="rating-stars">★★★★★</span>
+          <span class="rating-score">5/5</span>
+        </div>
+        <div class="rating-row">
+          <span class="rating-label">Cleanup</span>
+          <span class="rating-stars">★★★☆☆</span>
+          <span class="rating-score">3/5</span>
+        </div>
+      </div>
+      <div class="rating-final">
+        <span class="final-label">Final Score</span>
+        <span class="final-score">3.88 / 5</span>
+      </div>
+      <p class="rating-notes">Tasty and simple — a solid base you can build on. The kids ate them without complaint, which around here is basically a five-star review. The cooking itself couldn't be easier — it's boiling water. The prep is where it gets tedious. Peeling and cubing two pounds of potatoes takes actual time and leaves a mess. Cleanup is more dishes than you'd expect for mashed potatoes. Made these alongside kielbasa and it was genuinely great. Worth making again, just mentally budget the prep time.</p>
+    </div>
+  </div>
+</main>
+
+<script>
+  const baseServings = 4;
+  let currentServings = 4;
+
+  const ingredients = [
+    { base: 2,    unit: 'lb',   name: 'russet potatoes, peeled and cubed' },
+    { base: 4,    unit: 'tbsp', name: 'unsalted butter' },
+    { base: 0.5,  unit: 'cup',  name: 'sour cream' },
+    { base: 0.33, unit: 'cup',  name: 'whole milk, warmed' },
+    { base: 0.75, unit: 'tsp',  name: 'salt' },
+  ];
+
+  function formatAmount(val, unit) {
+    const fractions = { 0.25: '¼', 0.33: '⅓', 0.5: '½', 0.67: '⅔', 0.75: '¾' };
+    const rounded = Math.round(val * 4) / 4;
+    const whole = Math.floor(rounded);
+    const frac = Math.round((rounded - whole) * 100) / 100;
+    const fracStr = fractions[frac] || (frac > 0 ? frac.toString() : '');
+    const display = whole > 0 ? (fracStr ? `${whole} ${fracStr}` : `${whole}`) : fracStr || val.toFixed(2);
+    return `${display} ${unit}`;
+  }
+
+  function updateIngredients() {
+    const ratio = currentServings / baseServings;
+    const items = document.querySelectorAll('#ingredients-list .ing-amount');
+    ingredients.forEach((ing, i) => {
+      if (items[i]) items[i].textContent = formatAmount(ing.base * ratio, ing.unit);
+    });
+  }
+
+  function changeServings(delta) {
+    currentServings = Math.max(1, currentServings + delta);
+    document.getElementById('servings-count').textContent = currentServings;
+    updateIngredients();
+  }
+</script>
+</Layout>
