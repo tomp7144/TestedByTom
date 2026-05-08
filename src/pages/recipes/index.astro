@@ -429,7 +429,7 @@ const recipes = [
         <tbody id="recipeTableBody">
           {recipes.map(recipe => (
             <tr
-              data-name={recipe.title.toLowerCase()}
+              data-name={(recipe.title ?? '').toLowerCase()}
               data-category={recipe.category}
               data-overall={recipe.scores.overall ?? -1}
               data-taste={recipe.scores.taste ?? -1}
