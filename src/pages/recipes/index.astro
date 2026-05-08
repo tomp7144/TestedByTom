@@ -3,6 +3,15 @@ import Layout from '../../layouts/Layout.astro';
 
 const recipes = [
   {
+    slug: 'air-fryer-hotdogs',
+    title: 'Air Fryer Hotdog Coins',
+    tag: 'Snack · Air Fryer',
+    description: 'No grill, no bun, no mess. Cut, air fry, dip. The kids get their hotdog and you get your sanity.',
+    rating: '5.00 / 5',
+    category: 'Snack',
+    scores: { overall: 5.00, taste: 5, cleanup: 5, prep: 5, cooking: 5 },
+  },
+  {
     slug: 'chicken-bites',
     title: 'Crispy Air-Fried Chicken Bites & Potato Wedges',
     tag: 'Allium-Free · Air Fryer',
@@ -67,7 +76,6 @@ const recipes = [
   },
   {
     slug: 'mini-chocolate-chip-muffins',
-    title: 'Copycat Mini Chocolate Chip Muffins',
     tag: 'Baking · Kid-Approved',
     description: 'Making these from scratch costs pennies on the dollar compared to buying the boxed pouches. Freeze a big batch and your kids always have a snack ready.',
     rating: '3.75 / 5',
@@ -398,6 +406,7 @@ const recipes = [
       <select class="table-filter" id="categoryFilter">
         <option value="">All Categories</option>
         <option value="Meal">Meal</option>
+        <option value="Snack">Snack</option>
         <option value="Dessert">Dessert</option>
         <option value="Drink">Drink</option>
       </select>
