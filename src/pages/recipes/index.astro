@@ -106,9 +106,9 @@ const recipes = [
     font-family: 'Fraunces', serif;
   }
   .recipe-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.25rem;
   }
   .recipe-card {
     background: var(--warm-white);
@@ -117,9 +117,7 @@ const recipes = [
     padding: 1.5rem 1.75rem;
     text-decoration: none;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
+    flex-direction: column;
     transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
     box-shadow: 0 2px 8px rgba(59,42,26,0.04);
   }
@@ -153,10 +151,12 @@ const recipes = [
   }
   .recipe-meta {
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 0.4rem;
-    flex-shrink: 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
   }
   .recipe-rating {
     font-family: 'Fraunces', serif;
@@ -346,8 +346,7 @@ const recipes = [
   }
 
   @media (max-width: 560px) {
-    .recipe-card { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
-    .recipe-meta { align-items: flex-start; flex-direction: row; }
+    .recipe-list { grid-template-columns: 1fr; }
   }
 </style>
 
@@ -386,9 +385,8 @@ const recipes = [
         class="table-search"
         id="recipeSearch"
         placeholder="Search recipes..."
-        oninput="filterTable()"
       />
-      <select class="table-filter" id="categoryFilter" onchange="filterTable()">
+      <select class="table-filter" id="categoryFilter">
         <option value="">All Categories</option>
         <option value="Meal">Meal</option>
         <option value="Dessert">Dessert</option>
@@ -400,13 +398,13 @@ const recipes = [
       <table class="recipe-table" id="recipeTable">
         <thead>
           <tr>
-            <th onclick="sortTable(0)" id="th-0">Recipe <span class="sort-icon none" id="si-0"></span></th>
-            <th onclick="sortTable(1)" id="th-1">Category <span class="sort-icon none" id="si-1"></span></th>
-            <th onclick="sortTable(2)" id="th-2">Overall <span class="sort-icon none" id="si-2"></span></th>
-            <th onclick="sortTable(3)" id="th-3">Taste <span class="sort-icon none" id="si-3"></span></th>
-            <th onclick="sortTable(4)" id="th-4">Prep <span class="sort-icon none" id="si-4"></span></th>
-            <th onclick="sortTable(5)" id="th-5">Cooking <span class="sort-icon none" id="si-5"></span></th>
-            <th onclick="sortTable(6)" id="th-6">Cleanup <span class="sort-icon none" id="si-6"></span></th>
+            <th data-col="0" id="th-0">Recipe <span class="sort-icon none" id="si-0"></span></th>
+            <th data-col="1" id="th-1">Category <span class="sort-icon none" id="si-1"></span></th>
+            <th data-col="2" id="th-2">Overall <span class="sort-icon none" id="si-2"></span></th>
+            <th data-col="3" id="th-3">Taste <span class="sort-icon none" id="si-3"></span></th>
+            <th data-col="4" id="th-4">Prep <span class="sort-icon none" id="si-4"></span></th>
+            <th data-col="5" id="th-5">Cooking <span class="sort-icon none" id="si-5"></span></th>
+            <th data-col="6" id="th-6">Cleanup <span class="sort-icon none" id="si-6"></span></th>
           </tr>
         </thead>
         <tbody id="recipeTableBody">
@@ -437,78 +435,64 @@ const recipes = [
 </main>
 
 <script>
+  const colKeys = ['name', 'category', 'overall', 'taste', 'prep', 'cooking', 'cleanup'];
   let sortCol = -1;
   let sortDir = 'asc';
 
   function filterTable() {
-    const search = document.getElementById('recipeSearch').value.toLowerCase();
-    const category = document.getElementById('categoryFilter').value;
+    const search = (document.getElementById('recipeSearch') as HTMLInputElement).value.toLowerCase();
+    const category = (document.getElementById('categoryFilter') as HTMLSelectElement).value;
     const rows = document.querySelectorAll('#recipeTableBody tr');
     let visible = 0;
 
     rows.forEach(row => {
-      const name = row.dataset.name || '';
-      const cat = row.dataset.category || '';
-      const matchSearch = name.includes(search);
-      const matchCat = category === '' || cat === category;
-      if (matchSearch && matchCat) {
-        row.style.display = '';
-        visible++;
-      } else {
-        row.style.display = 'none';
-      }
+      const el = row as HTMLElement;
+      const name = el.dataset.name || '';
+      const cat = el.dataset.category || '';
+      const show = name.includes(search) && (category === '' || cat === category);
+      el.style.display = show ? '' : 'none';
+      if (show) visible++;
     });
 
-    document.getElementById('noResults').style.display = visible === 0 ? 'block' : 'none';
+    (document.getElementById('noResults') as HTMLElement).style.display = visible === 0 ? 'block' : 'none';
   }
 
-  function sortTable(col) {
-    const colKeys = ['name', 'category', 'overall', 'taste', 'prep', 'cooking', 'cleanup'];
+  function sortTable(col: number) {
     const key = colKeys[col];
+    sortDir = sortCol === col ? (sortDir === 'asc' ? 'desc' : 'asc') : (col >= 2 ? 'desc' : 'asc');
+    sortCol = col;
 
-    if (sortCol === col) {
-      sortDir = sortDir === 'asc' ? 'desc' : 'asc';
-    } else {
-      sortCol = col;
-      sortDir = col >= 2 ? 'desc' : 'asc'; // default numeric cols to desc (highest first)
-    }
-
-    // Update sort icons
     for (let i = 0; i < 7; i++) {
-      const icon = document.getElementById('si-' + i);
-      const th = document.getElementById('th-' + i);
-      if (i === col) {
-        icon.className = 'sort-icon ' + sortDir;
-        th.classList.add('sorted');
-      } else {
-        icon.className = 'sort-icon none';
-        th.classList.remove('sorted');
-      }
+      const icon = document.getElementById('si-' + i) as HTMLElement;
+      const th = document.getElementById('th-' + i) as HTMLElement;
+      icon.className = i === col ? 'sort-icon ' + sortDir : 'sort-icon none';
+      th.classList.toggle('sorted', i === col);
     }
 
-    const tbody = document.getElementById('recipeTableBody');
-    const rows = Array.from(tbody.querySelectorAll('tr'));
+    const tbody = document.getElementById('recipeTableBody') as HTMLElement;
+    const rows = Array.from(tbody.querySelectorAll('tr')) as HTMLElement[];
 
     rows.sort((a, b) => {
-      let aVal = a.dataset[key] || '';
-      let bVal = b.dataset[key] || '';
-
+      const aRaw = a.dataset[key] || '';
+      const bRaw = b.dataset[key] || '';
       if (col >= 2) {
-        aVal = parseFloat(aVal);
-        bVal = parseFloat(bVal);
-        // Push unrated (-1) to bottom regardless of sort direction
+        const aVal = parseFloat(aRaw);
+        const bVal = parseFloat(bRaw);
         if (aVal === -1 && bVal === -1) return 0;
         if (aVal === -1) return 1;
         if (bVal === -1) return -1;
         return sortDir === 'asc' ? aVal - bVal : bVal - aVal;
-      } else {
-        return sortDir === 'asc'
-          ? aVal.localeCompare(bVal)
-          : bVal.localeCompare(aVal);
       }
+      return sortDir === 'asc' ? aRaw.localeCompare(bRaw) : bRaw.localeCompare(aRaw);
     });
 
     rows.forEach(row => tbody.appendChild(row));
   }
+
+  document.getElementById('recipeSearch')!.addEventListener('input', filterTable);
+  document.getElementById('categoryFilter')!.addEventListener('change', filterTable);
+  document.querySelectorAll('#recipeTable thead th').forEach(th => {
+    th.addEventListener('click', () => sortTable(parseInt((th as HTMLElement).dataset.col!)));
+  });
 </script>
 </Layout>
