@@ -104,6 +104,14 @@ function stars(rating: number | null) {
       </section>
 
     </div>
+
+    <div class="recipe-photos">
+      <div class="recipe-photos-grid">
+        <img src="/images/chocolate-ice-cream-pan.jpg" alt="Vanilla and chocolate ice cream side by side in a loaf pan in the freezer" />
+        <img src="/images/chocolate-ice-cream-blender.jpg" alt="Chocolate ice cream mixture fresh out of the Ninja blender" />
+      </div>
+    </div>
+
   </article>
 </Layout>
 
@@ -352,5 +360,29 @@ function stars(rating: number | null) {
     color: #5a4030;
     font-style: italic;
     margin: 0;
+  }
+
+  .recipe-photos {
+    margin-top: 2rem;
+    padding: 0 2rem 2rem;
+  }
+
+  .recipe-photos-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .recipe-photos-grid img {
+    width: 100%;
+    border-radius: 2px;
+    border: 1px solid var(--border);
+    display: block;
+    object-fit: cover;
+    aspect-ratio: 4/3;
+  }
+
+  @media (max-width: 500px) {
+    .recipe-photos-grid { grid-template-columns: 1fr; }
   }
 </style>

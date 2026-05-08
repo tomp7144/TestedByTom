@@ -55,6 +55,8 @@ import Layout from '../../layouts/Layout.astro';
   .rating-final-score { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 700; color: var(--rust); }
   .rating-notes { font-size: 0.875rem; color: var(--text-muted); font-style: italic; line-height: 1.6; font-family: 'Fraunces', serif; }
   .rating-affiliate { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+  .recipe-photos { margin-top: 2rem; }
+  .recipe-photos img { width: 100%; border-radius: 2px; border: 1px solid var(--border); display: block; }
   .rating-affiliate-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.35rem; }
   .rating-affiliate-link { display: inline-block; font-size: 0.85rem; font-weight: 700; color: var(--rust); text-decoration: none; margin-bottom: 0.25rem; }
   .rating-affiliate-link:hover { text-decoration: underline; }
@@ -129,6 +131,10 @@ import Layout from '../../layouts/Layout.astro';
       <a href="https://amzn.to/4w9oRVo" target="_blank" rel="noopener" class="rating-affiliate-link">Ninja Auto iQ Blender — View on Amazon →</a>
       <p class="rating-affiliate-note">Affiliate link — I earn a small commission at no cost to you.</p>
     </div>
+  </div>
+
+  <div class="recipe-photos">
+    <img src="/images/vanilla-ice-cream.jpg" alt="Vanilla and chocolate ice cream side by side in a loaf pan" />
   </div>
 </main>
 
