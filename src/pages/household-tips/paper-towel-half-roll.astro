@@ -1,0 +1,299 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="Cut Your Paper Towel Roll in Half. You'll Never Go Back. — TestedByTom" description="Simple, cheap, and a small hint of danger. One cut doubles how long a roll lasts.">
+<style>
+  main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 5rem;
+  }
+
+  .breadcrumb {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 1.75rem;
+    letter-spacing: 0.03em;
+  }
+  .breadcrumb a {
+    color: var(--rust);
+    text-decoration: none;
+  }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb span { margin: 0 0.4rem; }
+
+  .post-header {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .post-tag {
+    display: inline-block;
+    background: var(--rust);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.65rem;
+    border-radius: 2px;
+    margin-bottom: 0.85rem;
+  }
+  .post-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.6rem, 4.5vw, 2.4rem);
+    font-weight: 700;
+    color: var(--brown);
+    line-height: 1.2;
+    margin-bottom: 0.65rem;
+  }
+  .post-subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-style: italic;
+    font-family: 'Fraunces', serif;
+    line-height: 1.5;
+  }
+  .post-meta {
+    margin-top: 1rem;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .post-body {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--brown);
+  }
+  .post-body p {
+    margin-bottom: 1.25rem;
+  }
+
+  .materials-box {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--tan);
+    border-radius: 2px;
+    padding: 1.5rem 1.75rem;
+    margin: 2rem 0;
+  }
+  .materials-box h3 {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--brown);
+    margin-bottom: 0.85rem;
+  }
+  .materials-box ul {
+    margin: 0;
+    padding-left: 1.2rem;
+    color: var(--brown);
+    font-size: 0.95rem;
+    line-height: 1.9;
+  }
+
+  .steps-list {
+    counter-reset: steps;
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0 2rem;
+  }
+  .steps-list li {
+    counter-increment: steps;
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    align-items: flex-start;
+  }
+  .steps-list li::before {
+    content: counter(steps);
+    background: var(--rust);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    min-width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.15rem;
+    flex-shrink: 0;
+  }
+  .steps-list li p {
+    margin: 0;
+    font-size: 0.97rem;
+    line-height: 1.7;
+    color: var(--brown);
+  }
+
+  .callout {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--rust);
+    border-radius: 2px;
+    padding: 1.25rem 1.5rem;
+    margin: 2rem 0;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--brown);
+  }
+  .callout strong {
+    display: block;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--rust);
+    margin-bottom: 0.4rem;
+    font-family: 'Lato', sans-serif;
+  }
+
+  .rating-section {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 1.75rem;
+    margin-top: 2.5rem;
+  }
+  .rating-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 1rem;
+  }
+  .rating-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+  .rating-name {
+    min-width: 120px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .rating-stars { color: var(--rust); font-size: 0.85rem; }
+  .rating-score { font-weight: 700; color: var(--brown); font-size: 0.85rem; }
+  .rating-final {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    margin: 1rem 0;
+  }
+  .final-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .final-score {
+    font-family: 'Fraunces', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--rust);
+  }
+  .rating-notes {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    font-style: italic;
+    line-height: 1.6;
+    font-family: 'Fraunces', serif;
+    margin: 0;
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-top: 3rem;
+    font-size: 0.85rem;
+    color: var(--rust);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+  }
+  .back-link:hover { text-decoration: underline; }
+</style>
+
+<main>
+  <div class="breadcrumb">
+    <a href="/">Home</a><span>›</span>
+    <a href="/household-tips">Household Tips</a><span>›</span>
+    Cut Your Paper Towel Roll in Half
+  </div>
+
+  <div class="post-header">
+    <span class="post-tag">Household Tip · Kitchen</span>
+    <h1 class="post-title">Cut Your Paper Towel Roll in Half. You'll Never Go Back.</h1>
+    <p class="post-subtitle">Simple, practically free, and involves a small but respectable amount of danger. One cut and your paper towels last twice as long.</p>
+    <div class="post-meta">Still doing it · Kids approved</div>
+  </div>
+
+  <div class="post-body">
+    <p>Most paper towel sheets are way bigger than what you actually need. Wiping a counter, cleaning up a small spill, drying your hands — none of that requires a full sheet. You're just tearing off more than you need out of habit, and so are your kids.</p>
+
+    <p>The fix is one cut with a sharp knife. You end up with two half rolls that fit your standard holder just fine, and you go through them at half the speed.</p>
+
+    <div class="materials-box">
+      <h3>What You Need</h3>
+      <ul>
+        <li>A paper towel roll</li>
+        <li>A big, sharp, <strong>non-serrated</strong> knife</li>
+        <li>A cutting board</li>
+      </ul>
+    </div>
+
+    <h2 style="font-family:'Fraunces',serif;font-size:1.3rem;color:var(--brown);margin:2rem 0 1rem;">How to Do It</h2>
+
+    <ol class="steps-list">
+      <li><p>Set the paper towel roll on its side on a cutting board.</p></li>
+      <li><p>Find the middle of the roll and position your knife there.</p></li>
+      <li><p>Press down firmly and saw through with a smooth back-and-forth motion. The key is steady pressure — let the knife do the work.</p></li>
+      <li><p>You now have two half rolls. Pop one on the holder, store the other under the sink or wherever you keep your extras.</p></li>
+    </ol>
+
+    <div class="callout">
+      <strong>⚠️ Use a non-serrated knife</strong>
+      I learned this the hard way. A serrated blade catches on the paper and shreds the whole roll into a mess. You want a smooth, sharp chef's knife or a large santoku. One clean pass and you're done.
+    </div>
+
+    <p>The half rolls fit a standard paper towel holder without any modification. I keep one on the holder and one near the table. Why two spots? Kids. That's the whole reason. You already know.</p>
+
+    <p>Your kids will still grab "too much" — but now too much is half of what it used to be. Small wins.</p>
+  </div>
+
+  <div class="rating-section">
+    <div class="rating-label">Honest Rating</div>
+    <div class="rating-row">
+      <span class="rating-name">Ease</span>
+      <span class="rating-stars">★★★★★</span>
+      <span class="rating-score">5/5</span>
+    </div>
+    <div class="rating-row">
+      <span class="rating-name">Effectiveness</span>
+      <span class="rating-stars">★★★★★</span>
+      <span class="rating-score">5/5</span>
+    </div>
+    <div class="rating-row">
+      <span class="rating-name">Cleanup</span>
+      <span class="rating-stars">★★★★★</span>
+      <span class="rating-score">5/5</span>
+    </div>
+    <div class="rating-final">
+      <span class="final-label">Final Score</span>
+      <span class="final-score">5.00 / 5</span>
+    </div>
+    <p class="rating-notes">Takes 10 seconds. Costs nothing. Cuts your paper towel usage in half. Use the right knife and there's nothing to it.</p>
+  </div>
+
+  <a href="/household-tips" class="back-link">← Back to Household Tips</a>
+</main>
+</Layout>

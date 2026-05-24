@@ -1,0 +1,247 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="Free Heavy-Duty Roller Stand from a Pallet & Old Casters — TestedByTom" description="Need to move something heavy around the garage? An old pallet and scavenged office chair casters might already be the solution.">
+<style>
+  main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 5rem;
+  }
+
+  .breadcrumb {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 1.75rem;
+    letter-spacing: 0.03em;
+  }
+  .breadcrumb a {
+    color: var(--rust);
+    text-decoration: none;
+  }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb span { margin: 0 0.4rem; }
+
+  .post-header {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .post-tag {
+    display: inline-block;
+    background: var(--rust);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.65rem;
+    border-radius: 2px;
+    margin-bottom: 0.85rem;
+  }
+  .post-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4.5vw, 2.4rem);
+    font-weight: 700;
+    color: var(--brown);
+    line-height: 1.2;
+    margin-bottom: 0.65rem;
+  }
+  .post-subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+    line-height: 1.5;
+  }
+  .post-meta {
+    margin-top: 1rem;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .post-body {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--brown);
+  }
+  .post-body p {
+    margin-bottom: 1.25rem;
+  }
+
+  .materials-box {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--tan);
+    border-radius: 2px;
+    padding: 1.5rem 1.75rem;
+    margin: 2rem 0;
+  }
+  .materials-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--brown);
+    margin-bottom: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.78rem;
+  }
+  .materials-box ul {
+    margin: 0;
+    padding-left: 1.2rem;
+    color: var(--brown);
+    font-size: 0.95rem;
+    line-height: 1.9;
+  }
+
+  .steps-list {
+    counter-reset: steps;
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0 2rem;
+  }
+  .steps-list li {
+    counter-increment: steps;
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    align-items: flex-start;
+  }
+  .steps-list li::before {
+    content: counter(steps);
+    background: var(--rust);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    min-width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.15rem;
+    flex-shrink: 0;
+  }
+  .steps-list li p {
+    margin: 0;
+    font-size: 0.97rem;
+    line-height: 1.7;
+    color: var(--brown);
+  }
+
+  .callout {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--rust);
+    border-radius: 2px;
+    padding: 1.25rem 1.5rem;
+    margin: 2rem 0;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--brown);
+  }
+  .callout strong {
+    display: block;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--rust);
+    margin-bottom: 0.4rem;
+    font-family: 'Lato', sans-serif;
+  }
+
+  .verdict {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 1.75rem;
+    margin-top: 2.5rem;
+  }
+  .verdict-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 0.5rem;
+  }
+  .verdict p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: var(--brown);
+    line-height: 1.65;
+    margin: 0;
+    font-style: italic;
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-top: 3rem;
+    font-size: 0.85rem;
+    color: var(--rust);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+  }
+  .back-link:hover { text-decoration: underline; }
+</style>
+
+<main>
+  <div class="breadcrumb">
+    <a href="/">Home</a><span>›</span>
+    <a href="/household-tips">Household Tips</a><span>›</span>
+    Free Heavy-Duty Roller Stand
+  </div>
+
+  <div class="post-header">
+    <span class="post-tag">Household Tip · Garage</span>
+    <h1 class="post-title">Free Heavy-Duty Roller Stand from a Pallet & Old Casters</h1>
+    <p class="post-subtitle">Need a cart to move something seriously heavy around the garage? You might already have everything you need.</p>
+    <div class="post-meta">Updated May 2026 &nbsp;·&nbsp; Tested a few months</div>
+  </div>
+
+  <div class="post-body">
+    <p>I needed a way to move my snowblower attachment for my Mahindra 1120 HST around the garage without throwing my back out. It's heavy. I didn't want to spend money on a cart when I had an old pallet sitting outside and a pile of office chair casters I'd pulled off chairs when I swapped them for rollerblade wheels.</p>
+
+    <p>This isn't a precision build. There are no measurements. It's just an idea — and it works.</p>
+
+    <div class="materials-box">
+      <h3>What You Need</h3>
+      <ul>
+        <li>An old wooden pallet</li>
+        <li>Office chair casters (the more the better — I used 10)</li>
+        <li>A drill with a bit sized to match your caster stems</li>
+        <li>A rubber mallet or hammer</li>
+        <li>Strong adhesive (optional but recommended — more on that below)</li>
+      </ul>
+    </div>
+
+    <h2 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--brown);margin:2rem 0 1rem;">How to Build It</h2>
+
+    <ol class="steps-list">
+      <li><p>Flip the pallet upside down so the flat side faces up and the bottom board slats are facing down — this is where the casters go.</p></li>
+      <li><p>Drill holes into the bottom boards sized to fit your caster stems snugly. Space them out across the whole surface — don't cluster them in one spot.</p></li>
+      <li><p>Press or lightly hammer the casters into the holes. Go easy — just enough to seat them without cracking the wood.</p></li>
+      <li><p>Flip it back over, set whatever heavy thing you need on top, and roll it where you need it.</p></li>
+    </ol>
+
+    <div class="callout">
+      <strong>Why so many casters?</strong>
+      A single caster under serious weight will get crushed. But spread across 10, the load distributes the same way lying on a bed of nails works — no single point takes enough pressure to fail. I had 10 casters from old chairs and used all of them.
+    </div>
+
+    <h2 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--brown);margin:2rem 0 1rem;">What I'd Do Differently</h2>
+
+    <p>I lost two wheels over a few months of use. The casters work themselves loose over time, especially under heavy loads. The fix is simple: before you hammer the casters in, put a dab of strong adhesive in each drilled hole and let it cure overnight before loading it up. I skipped that step. Don't skip that step.</p>
+
+    <div class="verdict">
+      <div class="verdict-label">Bottom Line</div>
+      <p>It's not pretty and it's not permanent — but it's free, it holds a lot of weight, and it takes maybe 20 minutes to build. If you've got a pallet and a pile of old office chair casters, there's no reason not to make one.</p>
+    </div>
+  </div>
+
+  <a href="/household-tips" class="back-link">← Back to Household Tips</a>
+</main>
+</Layout>

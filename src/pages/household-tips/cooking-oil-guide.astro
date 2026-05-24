@@ -1,0 +1,433 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="Cooking Oil Reference Guide — TestedByTom" description="Smoke points, best uses, flavor profiles, and what to avoid for every common cooking oil. Filter by use case.">
+<style>
+  main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem 5rem;
+  }
+
+  .breadcrumb {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 1.75rem;
+    letter-spacing: 0.03em;
+  }
+  .breadcrumb a { color: var(--rust); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb span { margin: 0 0.4rem; }
+
+  .post-header {
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .post-tag {
+    display: inline-block;
+    background: var(--rust);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.65rem;
+    border-radius: 2px;
+    margin-bottom: 0.85rem;
+  }
+  .post-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.6rem, 4.5vw, 2.4rem);
+    font-weight: 700;
+    color: var(--brown);
+    line-height: 1.2;
+    margin-bottom: 0.65rem;
+  }
+  .post-subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    font-style: italic;
+    font-family: 'Fraunces', serif;
+    line-height: 1.5;
+  }
+
+  /* ── FILTERS ── */
+  .filter-bar {
+    margin-bottom: 1.5rem;
+  }
+  .filter-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.65rem;
+    display: block;
+  }
+  .filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .filter-btn {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 0.03em;
+  }
+  .filter-btn:hover {
+    border-color: var(--tan);
+    color: var(--brown);
+  }
+  .filter-btn.active {
+    background: var(--rust);
+    border-color: var(--rust);
+    color: white;
+  }
+
+  /* ── TABLE ── */
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    background: var(--warm-white);
+  }
+  thead {
+    background: var(--brown);
+    color: var(--cream);
+  }
+  th {
+    padding: 0.85rem 1rem;
+    text-align: left;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+  }
+  th:hover { color: var(--tan-light); }
+  th.sorted { color: var(--tan); }
+  th .sort-arrow { margin-left: 0.3rem; opacity: 0.5; }
+  th.sorted .sort-arrow { opacity: 1; }
+
+  tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.1s;
+  }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: var(--cream); }
+  tbody tr.hidden { display: none; }
+
+  td {
+    padding: 0.85rem 1rem;
+    vertical-align: top;
+    color: var(--brown);
+    line-height: 1.5;
+  }
+
+  .oil-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--brown);
+    white-space: nowrap;
+  }
+
+  .smoke-temp {
+    font-weight: 700;
+    color: var(--brown);
+    white-space: nowrap;
+  }
+  .smoke-high { color: var(--green); }
+  .smoke-med { color: var(--rust); }
+  .smoke-low { color: #9b6b4a; }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+  .tag {
+    background: var(--tan-light);
+    border-radius: 2px;
+    padding: 0.15rem 0.5rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--brown);
+    white-space: nowrap;
+  }
+  .tag.avoid {
+    background: #fde8e0;
+    color: #a03010;
+  }
+
+  .flavor-note {
+    font-style: italic;
+    color: var(--text-muted);
+    font-size: 0.83rem;
+  }
+
+  .no-results {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-muted);
+    font-style: italic;
+    font-family: 'Fraunces', serif;
+    display: none;
+  }
+
+  /* ── LEGEND ── */
+  .legend {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+  .legend-item { display: flex; align-items: center; gap: 0.4rem; }
+  .legend-dot {
+    width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-top: 3rem;
+    font-size: 0.85rem;
+    color: var(--rust);
+    text-decoration: none;
+  }
+  .back-link:hover { text-decoration: underline; }
+
+  @media (max-width: 640px) {
+    th, td { padding: 0.65rem 0.75rem; }
+  }
+</style>
+
+<main>
+  <div class="breadcrumb">
+    <a href="/">Home</a><span>›</span>
+    <a href="/household-tips">Household Tips</a><span>›</span>
+    Cooking Oil Reference Guide
+  </div>
+
+  <div class="post-header">
+    <span class="post-tag">Reference · Kitchen</span>
+    <h1 class="post-title">Cooking Oil Reference Guide</h1>
+    <p class="post-subtitle">Smoke points, flavor profiles, best uses, and what to avoid — for every oil you're likely to have in your kitchen. Filter by what you're cooking.</p>
+  </div>
+
+  <div class="filter-bar">
+    <span class="filter-label">Filter by use</span>
+    <div class="filter-buttons">
+      <button class="filter-btn active" data-filter="all">All Oils</button>
+      <button class="filter-btn" data-filter="searing">Searing</button>
+      <button class="filter-btn" data-filter="stir-fry">Stir Fry</button>
+      <button class="filter-btn" data-filter="baking">Baking</button>
+      <button class="filter-btn" data-filter="frying">Frying</button>
+      <button class="filter-btn" data-filter="roasting">Roasting</button>
+      <button class="filter-btn" data-filter="dressing">Dressings</button>
+      <button class="filter-btn" data-filter="finishing">Finishing</button>
+      <button class="filter-btn" data-filter="cast-iron">Cast Iron</button>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table id="oil-table">
+      <thead>
+        <tr>
+          <th data-col="name">Oil <span class="sort-arrow">↕</span></th>
+          <th data-col="smoke" class="sorted">Smoke Point <span class="sort-arrow">↓</span></th>
+          <th data-col="flavor">Flavor</th>
+          <th data-col="best">Best For</th>
+          <th data-col="avoid">Avoid For</th>
+        </tr>
+      </thead>
+      <tbody id="oil-body">
+
+        <tr data-uses="searing stir-fry frying roasting cast-iron">
+          <td><div class="oil-name">Avocado Oil</div><div class="flavor-note">Neutral, very mild</div></td>
+          <td><span class="smoke-temp smoke-high">520°F / 271°C</span></td>
+          <td>Neutral to very mild — won't compete with your food</td>
+          <td><div class="tag-list"><span class="tag">Searing</span><span class="tag">Cast Iron</span><span class="tag">Stir Fry</span><span class="tag">Frying</span><span class="tag">Roasting</span></div></td>
+          <td><div class="tag-list"><span class="tag avoid">Nothing much — most versatile oil</span></div></td>
+        </tr>
+
+        <tr data-uses="roasting stir-fry searing frying">
+          <td><div class="oil-name">Light / Refined Olive Oil</div><div class="flavor-note">Mild, clean</div></td>
+          <td><span class="smoke-temp smoke-high">465°F / 240°C</span></td>
+          <td>Mild and clean — much more neutral than EVOO</td>
+          <td><div class="tag-list"><span class="tag">Roasting</span><span class="tag">Sautéing</span><span class="tag">Frying</span><span class="tag">Stir Fry</span></div></td>
+          <td><div class="tag-list"><span class="tag avoid">Don't use for finishing — no flavor payoff</span></div></td>
+        </tr>
+
+        <tr data-uses="stir-fry frying baking cast-iron roasting">
+          <td><div class="oil-name">Refined Coconut Oil</div><div class="flavor-note">Neutral</div></td>
+          <td><span class="smoke-temp smoke-high">450°F / 232°C</span></td>
+          <td>Neutral — the refining removes the coconut flavor</td>
+          <td><div class="tag-list"><span class="tag">Baking</span><span class="tag">Stir Fry</span><span class="tag">Sautéing</span><span class="tag">Frying</span></div></td>
+          <td><div class="tag-list"><span class="tag avoid">Don't confuse with unrefined — very different</span></div></td>
+        </tr>
+
+        <tr data-uses="stir-fry frying baking cast-iron roasting">
+          <td><div class="oil-name">Grapeseed Oil</div><div class="flavor-note">Very neutral</div></td>
+          <td><span class="smoke-temp smoke-high">420°F / 216°C</span></td>
+          <td>Almost no flavor — completely gets out of the way</td>
+          <td><div class="tag-list"><span class="tag">Cast Iron</span><span class="tag">Stir Fry</span><span class="tag">Sautéing</span><span class="tag">Frying</span></div></td>
+          <td><div class="tag-list"><span class="tag avoid">Dressings — too neutral, nothing to add</span></div></td>
+        </tr>
+
+        <tr data-uses="frying baking stir-fry roasting">
+          <td><div class="oil-name">Canola Oil</div><div class="flavor-note">Neutral</div></td>
+          <td><span class="smoke-temp smoke-med">400°F / 204°C</span></td>
+          <td>Neutral — the workhorse oil, no strong opinions</td>
+          <td><div class="tag-list"><span class="tag">Frying</span><span class="tag">Baking</span><span class="tag">Everyday Cooking</span><span class="tag">Cast Iron</span></div></td>
+          <td><div class="tag-list"><span class="tag avoid">High-heat searing — borderline smoke point</span></div></td>
+        </tr>
+
+        <tr data-uses="frying baking stir-fry roasting">
+          <td><div class="oil-name">Vegetable Oil</div><div class="flavor-note">Neutral</div></td>
+          <td><span class="smoke-temp smoke-med">400°F / 204°C</span></td>
+          <td>Neutral — usually a soybean blend</td>
+          <td><div class="tag-list"><span class="tag">Frying</span><span class="tag">Baking</span><span class="tag">Everyday Cooking</span></div></td>
+          <td><div class="tag-list"><span class="tag avoid">High-heat searing</span></div></td>
+        </tr>
+
+        <tr data-uses="dressing finishing">
+          <td><div class="oil-name">Extra Virgin Olive Oil</div><div class="flavor-note">Fruity, grassy, peppery</div></td>
+          <td><span class="smoke-temp smoke-low">375°F / 190°C</span></td>
+          <td>Fruity and grassy with a peppery finish — the flavor is the whole point</td>
+          <td><div class="tag-list"><span class="tag">Dressings</span><span class="tag">Finishing</span><span class="tag">Dipping</span><span class="tag">Low-heat sauté</span></div></td>
+          <td><div class="tag-list"><span class="tag avoid">Any high heat — burns and goes bitter</span></div></td>
+        </tr>
+
+        <tr data-uses="finishing">
+          <td><div class="oil-name">Sesame Oil (Toasted)</div><div class="flavor-note">Strong, nutty, bold</div></td>
+          <td><span class="smoke-temp smoke-low">350°F / 177°C</span></td>
+          <td>Very bold and nutty — a little goes a long way</td>
+          <td><div class="tag-list"><span class="tag">Finishing Asian dishes</span><span class="tag">Marinades</span><span class="tag">Dressings</span></div></td>
+          <td><div class="tag-list"><span class="tag avoid">High-heat cooking — flavor burns off and turns harsh</span></div></td>
+        </tr>
+
+        <tr data-uses="baking finishing">
+          <td><div class="oil-name">Unrefined Coconut Oil</div><div class="flavor-note">Distinct coconut flavor</div></td>
+          <td><span class="smoke-temp smoke-low">350°F / 177°C</span></td>
+          <td>Strong coconut flavor — only use it if you want that</td>
+          <td><div class="tag-list"><span class="tag">Baking</span><span class="tag">Low-heat sauté</span><span class="tag">Tropical dishes</span></div></td>
+          <td><div class="tag-list"><span class="tag avoid">Anything savory where coconut flavor doesn't fit</span></div></td>
+        </tr>
+
+        <tr data-uses="finishing dressing">
+          <td><div class="oil-name">Butter</div><div class="flavor-note">Rich, nutty, creamy</div></td>
+          <td><span class="smoke-temp smoke-low">350°F / 177°C</span></td>
+          <td>Rich and nutty when browned — best flavor of anything on this list</td>
+          <td><div class="tag-list"><span class="tag">Finishing sauces</span><span class="tag">Low-heat sauté</span><span class="tag">Basting</span><span class="tag">Baking</span></div></td>
+          <td><div class="tag-list"><span class="tag avoid">High heat solo — burns fast. Combine with oil to raise smoke point.</span></div></td>
+        </tr>
+
+      </tbody>
+    </table>
+    <div class="no-results" id="no-results">No oils match that filter.</div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> High heat (400°F+)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--rust)"></div> Medium heat (375–400°F)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#9b6b4a"></div> Low heat / finishing (under 375°F)</div>
+  </div>
+
+  <a href="/household-tips" class="back-link">← Back to Household Tips</a>
+</main>
+
+<script>
+  // ── FILTER ──
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const rows = document.querySelectorAll('#oil-body tr');
+  const noResults = document.getElementById('no-results');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.dataset.filter;
+      let visible = 0;
+
+      rows.forEach(row => {
+        if (filter === 'all' || row.dataset.uses.includes(filter)) {
+          row.classList.remove('hidden');
+          visible++;
+        } else {
+          row.classList.add('hidden');
+        }
+      });
+
+      noResults.style.display = visible === 0 ? 'block' : 'none';
+    });
+  });
+
+  // ── SORT ──
+  const headers = document.querySelectorAll('th[data-col]');
+  let currentSort = { col: 'smoke', dir: 'desc' };
+
+  headers.forEach(th => {
+    th.addEventListener('click', () => {
+      const col = th.dataset.col;
+      if (currentSort.col === col) {
+        currentSort.dir = currentSort.dir === 'asc' ? 'desc' : 'asc';
+      } else {
+        currentSort.col = col;
+        currentSort.dir = col === 'smoke' ? 'desc' : 'asc';
+      }
+
+      headers.forEach(h => {
+        h.classList.remove('sorted');
+        h.querySelector('.sort-arrow').textContent = '↕';
+      });
+      th.classList.add('sorted');
+      th.querySelector('.sort-arrow').textContent = currentSort.dir === 'asc' ? '↑' : '↓';
+
+      const tbody = document.getElementById('oil-body');
+      const rowsArr = Array.from(rows);
+
+      rowsArr.sort((a, b) => {
+        let aVal, bVal;
+        if (col === 'smoke') {
+          aVal = parseInt(a.querySelector('.smoke-temp').textContent);
+          bVal = parseInt(b.querySelector('.smoke-temp').textContent);
+        } else if (col === 'name') {
+          aVal = a.querySelector('.oil-name').textContent.trim();
+          bVal = b.querySelector('.oil-name').textContent.trim();
+        } else {
+          aVal = a.cells[col === 'flavor' ? 2 : col === 'best' ? 3 : 4].textContent.trim();
+          bVal = b.cells[col === 'flavor' ? 2 : col === 'best' ? 3 : 4].textContent.trim();
+        }
+
+        if (typeof aVal === 'number') {
+          return currentSort.dir === 'asc' ? aVal - bVal : bVal - aVal;
+        }
+        return currentSort.dir === 'asc'
+          ? aVal.localeCompare(bVal)
+          : bVal.localeCompare(aVal);
+      });
+
+      rowsArr.forEach(row => tbody.appendChild(row));
+    });
+  });
+</script>
+</Layout>

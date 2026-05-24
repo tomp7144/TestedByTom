@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 ---
-<Layout title="Household Tips" description="Little things Tom has figured out around the house.">
+<Layout title="Household Tips — TestedByTom" description="Little things Tom has figured out around the house. Some obvious, some not.">
 <style>
   main {
     max-width: 860px;
@@ -39,21 +39,64 @@ import Layout from '../../layouts/Layout.astro';
     font-style: italic;
     font-family: 'Fraunces', serif;
   }
-  .empty-state {
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+  .tip-card {
     background: var(--warm-white);
     border: 1px solid var(--border);
     border-radius: 2px;
-    padding: 3rem 2rem;
-    text-align: center;
+    padding: 1.75rem;
+    text-decoration: none;
+    display: block;
+    transition: border-color 0.15s, box-shadow 0.15s;
   }
-  .empty-icon { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
-  .empty-title {
+  .tip-card:hover {
+    border-color: var(--tan);
+    box-shadow: 0 2px 12px rgba(59,42,26,0.07);
+  }
+  .tip-card-tag {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 0.6rem;
+    display: block;
+  }
+  .tip-card-title {
     font-family: 'Fraunces', serif;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
     color: var(--brown);
-    margin-bottom: 0.5rem;
+    line-height: 1.3;
+    margin-bottom: 0.6rem;
   }
-  .empty-text { font-size: 0.9rem; color: var(--text-muted); font-style: italic; }
+  .tip-card-desc {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  .tip-card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .tip-card-rating {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--brown);
+  }
+  .tip-card-rating span { color: var(--rust); }
+  .tip-card-link {
+    font-size: 0.8rem;
+    color: var(--rust);
+    font-weight: 600;
+    letter-spacing: 0.03em;
+  }
 </style>
 
 <main>
@@ -63,10 +106,56 @@ import Layout from '../../layouts/Layout.astro';
     <p class="page-subtitle">Little things I've figured out around the house. Some obvious in hindsight, some not.</p>
   </div>
 
-  <div class="empty-state">
-    <span class="empty-icon">🏠</span>
-    <p class="empty-title">Tips coming soon</p>
-    <p class="empty-text">Tom is figuring things out. Check back shortly.</p>
+  <div class="tips-grid">
+
+    <a href="/household-tips/paper-towel-half-roll" class="tip-card">
+      <span class="tip-card-tag">Kitchen</span>
+      <div class="tip-card-title">Cut Your Paper Towel Roll in Half. You'll Never Go Back.</div>
+      <p class="tip-card-desc">One cut with a sharp knife and your paper towels last twice as long. Small hint of danger included.</p>
+      <div class="tip-card-meta">
+        <span class="tip-card-rating"><span>★</span> 5.00 / 5</span>
+        <span class="tip-card-link">Read tip →</span>
+      </div>
+    </a>
+
+    <a href="/household-tips/shower-curtain-washing-machine" class="tip-card">
+      <span class="tip-card-tag">Bathroom</span>
+      <div class="tip-card-title">Wash Your Shower Curtain in the Washing Machine</div>
+      <p class="tip-card-desc">No scrubbing, no chemicals, no effort. Throw it in and go do something else.</p>
+      <div class="tip-card-meta">
+        <span class="tip-card-rating"><span>★</span> 5.00 / 5</span>
+        <span class="tip-card-link">Read tip →</span>
+      </div>
+    </a>
+
+    <a href="/household-tips/cast-iron-seasoning" class="tip-card">
+      <span class="tip-card-tag">Kitchen · Cast Iron</span>
+      <div class="tip-card-title">How to Re-Season a Cast Iron Pan You Messed Up</div>
+      <p class="tip-card-desc">A little rust dust isn't the end of the world. Salt, a wet paper towel, some oil, and you're back in business.</p>
+      <div class="tip-card-meta">
+        <span class="tip-card-rating"><span>★</span> 5.00 / 5</span>
+        <span class="tip-card-link">Read tip →</span>
+      </div>
+    </a>
+
+    <a href="/household-tips/cooking-oil-guide" class="tip-card">
+      <span class="tip-card-tag">Kitchen · Reference</span>
+      <div class="tip-card-title">Cooking Oil Reference Guide</div>
+      <p class="tip-card-desc">Smoke points, flavor profiles, best uses, and what to avoid. Filterable by what you're actually cooking.</p>
+      <div class="tip-card-meta">
+        <span class="tip-card-link">View guide →</span>
+      </div>
+    </a>
+
+    <a href="/household-tips/pallet-roller-stand" class="tip-card">
+      <span class="tip-card-tag">Garage · Free Build</span>
+      <div class="tip-card-title">Free Heavy-Duty Roller Stand from a Pallet & Old Casters</div>
+      <p class="tip-card-desc">Need a cart to move something seriously heavy around the garage? You might already have everything you need.</p>
+      <div class="tip-card-meta">
+        <span class="tip-card-link">Read tip →</span>
+      </div>
+    </a>
+
   </div>
 </main>
 </Layout>
