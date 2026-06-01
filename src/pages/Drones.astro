@@ -1,0 +1,365 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Drones">
+<style>
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 1.25rem 5rem;
+  }
+
+  .eyebrow {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 0.75rem;
+  }
+
+  .page-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 700;
+    color: var(--brown);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+  }
+
+  .page-lead {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    color: var(--brown);
+    opacity: 0.75;
+    line-height: 1.75;
+    max-width: 620px;
+    margin-bottom: 3rem;
+    font-style: italic;
+  }
+
+  /* DRONE CARDS */
+  .drone-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 3rem;
+  }
+
+  .drone-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 1.75rem;
+  }
+
+  .drone-card.featured {
+    border: 2px solid var(--rust);
+  }
+
+  .badge {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .badge-start  { background: #fde8de; color: var(--rust); }
+  .badge-pro    { background: #fef3c7; color: #92400e; }
+  .badge-active { background: var(--green-light); color: var(--green); }
+  .badge-disc   { background: #fee2e2; color: #991b1b; }
+
+  .drone-name {
+    font-family: 'Fraunces', serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--brown);
+    margin-bottom: 0.25rem;
+    letter-spacing: -0.02em;
+  }
+
+  .drone-sub {
+    font-size: 0.82rem;
+    color: var(--tan);
+    margin-bottom: 1rem;
+    font-style: italic;
+  }
+
+  .drone-desc {
+    font-size: 0.9rem;
+    color: var(--brown);
+    line-height: 1.75;
+    margin-bottom: 1rem;
+    opacity: 0.85;
+  }
+
+  .spec-list {
+    list-style: none;
+    border-top: 1px solid var(--border);
+    padding-top: 0.85rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .spec-list li {
+    font-size: 0.82rem;
+    color: var(--brown);
+    padding: 4px 0 4px 18px;
+    position: relative;
+    line-height: 1.5;
+    opacity: 0.8;
+  }
+
+  .spec-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--rust);
+    opacity: 0.6;
+  }
+
+  .drone-note {
+    font-size: 0.8rem;
+    color: var(--brown);
+    opacity: 0.6;
+    font-style: italic;
+    line-height: 1.65;
+    border-top: 1px solid var(--border);
+    padding-top: 0.75rem;
+  }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2.5rem 0;
+  }
+
+  /* CALLOUT */
+  .callout {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 1.75rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .callout-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--brown);
+    margin-bottom: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .callout-title::before { content: '⚡'; font-size: 1rem; }
+
+  .callout p {
+    font-size: 0.9rem;
+    color: var(--brown);
+    opacity: 0.82;
+    line-height: 1.75;
+    margin-bottom: 0.75rem;
+  }
+
+  .callout p:last-child { margin-bottom: 0; }
+
+  .legal-note {
+    background: var(--green-light);
+    border-left: 3px solid var(--green);
+    padding: 0.75rem 1rem;
+    margin: 0.85rem 0;
+  }
+
+  .legal-note p {
+    color: var(--green) !important;
+    font-size: 0.85rem !important;
+    margin: 0 !important;
+    opacity: 1 !important;
+  }
+
+  /* ALTERNATIVES */
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--brown);
+    margin-bottom: 0.6rem;
+    letter-spacing: -0.02em;
+  }
+
+  .section-lead {
+    font-size: 0.9rem;
+    color: var(--brown);
+    opacity: 0.75;
+    line-height: 1.75;
+    margin-bottom: 0.5rem;
+    max-width: 640px;
+  }
+
+  .asterisk {
+    font-size: 0.8rem;
+    color: var(--tan);
+    font-style: italic;
+    margin-bottom: 1.5rem;
+  }
+
+  .alt-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+  /* COMPARISON TABLE */
+  .table-wrap {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+  }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+
+  th {
+    text-align: left;
+    font-weight: 700;
+    color: var(--tan);
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    background: var(--cream);
+  }
+
+  td {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--brown);
+    vertical-align: top;
+    line-height: 1.5;
+    opacity: 0.85;
+  }
+
+  tr:last-child td { border-bottom: none; }
+  td:first-child { opacity: 0.6; font-size: 0.8rem; width: 36%; }
+
+  .ok   { color: var(--green); font-weight: 700; opacity: 1 !important; }
+  .warn { color: #d97706;      font-weight: 700; opacity: 1 !important; }
+
+  /* CAVEAT */
+  .caveat-box {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 2px;
+    padding: 1rem 1.1rem;
+    font-size: 0.85rem;
+    color: #78350f;
+    line-height: 1.65;
+  }
+</style>
+
+<main>
+
+  <p class="eyebrow">Gear I actually fly</p>
+  <h1 class="page-title">Drones I use for paid work</h1>
+  <p class="page-lead">No spec sheet comparisons. No sponsored recommendations. These are the tools I fly on real jobs — real estate, roof inspections, and beyond. I'll tell you what they're good for, where they fall short, and who actually needs what.</p>
+
+  <div class="drone-grid">
+
+    <div class="drone-card featured">
+      <span class="badge badge-start">Where I'd start</span>
+      <p class="drone-name">DJI Mini 3</p>
+      <p class="drone-sub">The drone that started the business</p>
+      <p class="drone-desc">Phenomenal photos, true vertical mode, excellent battery life, rock-solid connection. I bought this to survey large properties before I knew I was starting a business. It earned its keep from day one.</p>
+      <ul class="spec-list">
+        <li>Exceptional image quality for the price</li>
+        <li>True vertical mode — huge for social content</li>
+        <li>Real estate, roof inspections, basic mapping</li>
+        <li>Can be set up for rough mapping jobs</li>
+      </ul>
+      <p class="drone-note">The current equivalent is the DJI Mini 4 Pro — still officially sold in the US and my top recommendation for anyone starting out today. See the DJI situation note below before buying.</p>
+    </div>
+
+    <div class="drone-card">
+      <span class="badge badge-pro">Enterprise — $9,000</span>
+      <p class="drone-name">DJI Matrice 4T</p>
+      <p class="drone-sub">More drone than most people need</p>
+      <p class="drone-desc">112x hybrid zoom. Thermal imaging with zoom. AI tracking, object following, route mapping, cruise control. This machine does things that would have taken a small team a decade ago.</p>
+      <ul class="spec-list">
+        <li>Search and rescue operations</li>
+        <li>Residential and commercial inspections</li>
+        <li>Utility work — solar panels, power lines</li>
+        <li>Solid 40 min battery under good conditions</li>
+      </ul>
+      <p class="drone-note">At $9,000 this is not a starter drone. Buy it when a specific contract justifies it. Don't come at me saying you got 30 minutes in 20mph winds.</p>
+    </div>
+
+  </div>
+
+  <hr class="divider" />
+
+  <div class="callout">
+    <p class="callout-title">The DJI question — here's where I actually stand</p>
+    <p>For the work most solo operators are doing — real estate, roof inspections, small business clients — the DJI drama simply doesn't matter. Your clients don't care what brand is on your drone. They care about the photos.</p>
+    <div class="legal-note">
+      <p>DJI drones are fully legal for private commercial operators flying under Part 107. The bans you've read about apply to federal agencies and government-funded programs — not to you running a drone business serving local clients.</p>
+    </div>
+    <p>Where it does matter is government work. Depending on the level — municipal, state, federal — you may run into strict NDAA compliance requirements that disqualify DJI entirely. If government contracts are part of your business plan, do your homework before you buy.</p>
+    <p>My honest take: DJI is vastly superior for what you pay. Nothing else comes close at the price point. But go in with eyes open — there are jobs you may not be able to bid because of the brand on your controller. Know your market, know your clients, and make the call accordingly.</p>
+  </div>
+
+  <hr class="divider" />
+
+  <p class="section-title">What if you want to avoid DJI entirely?</p>
+  <p class="section-lead">There are no American-made drones that compete with the Mini 4 Pro at anything close to the same price. The US market for consumer-grade camera drones is essentially DJI or nothing. That said, if avoiding DJI is important to you, here are the two honest options — neither is American-made, but both fly under the political radar.</p>
+  <p class="asterisk">* I haven't personally flown either of these. Recommendations below are based on research, not experience.</p>
+
+  <div class="alt-grid">
+    <div class="drone-card">
+      <span class="badge badge-active">Actively sold</span>
+      <p class="drone-name">Potensic ATOM 2</p>
+      <p class="drone-sub">Best budget DJI alternative</p>
+      <p class="drone-desc">The most popular budget-friendly Mini competitor. Fantastic stabilization, beginner-friendly learning curve, flies well under the political radar. The safest long-term pick if you're avoiding DJI.</p>
+    </div>
+    <div class="drone-card">
+      <span class="badge badge-disc">Discontinued July 2025</span>
+      <p class="drone-name">Autel EVO Nano+</p>
+      <p class="drone-sub">Premium step up — buy carefully</p>
+      <p class="drone-desc">Larger sensor, superior low-light performance, 3-way obstacle avoidance. Directly competes with higher-end Mini models. Autel has avoided the DJI-specific bans — but the consumer line was discontinued in July 2025.</p>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Potensic ATOM 2</th>
+          <th>Autel EVO Nano+</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Camera sensor</td><td>1/2-inch Sony CMOS</td><td>1/1.28-inch CMOS (RYYB)</td></tr>
+        <tr><td>Video</td><td>4K at 30fps</td><td>4K at 30fps</td></tr>
+        <tr><td>Obstacle avoidance</td><td>Downward only</td><td>3-way (front, rear, down)</td></tr>
+        <tr><td>Flight time</td><td>Up to 32 min</td><td>Up to 28 min</td></tr>
+        <tr><td>Best for</td><td>Casual / budget-friendly</td><td>Low-light performance</td></tr>
+        <tr><td>Availability</td><td><span class="ok">✓ Active</span></td><td><span class="warn">⚠ Clearance only</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caveat-box">⚠ The Autel EVO Nano+ was discontinued July 2025. Units are still available used and through clearance stock — only buy one if the price reflects that reality. For someone just starting out, the Potensic is the safer long-term choice.</div>
+
+</main>
+</Layout>
